@@ -1,0 +1,83 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: #FFF9F2;
+    font-family: poppins; 
+}
+
+main{
+    align-items: center;
+    padding-top: 200px;
+    border-radius: 15px;
+    padding-bottom: 50%;
+   
+}
+fieldset{
+    border-style: outset;
+    width: 70%;
+    height: 90%;
+    background-color: #fff;
+    border-radius: 15px;
+    
+}
+header{
+    padding-bottom: 15px;
+}
+p{
+    color: #f58d08;
+    font-weight: bold;
+}
+.or{
+    color: rgb(207, 202, 202);
+    font-size: 12px;
+    text-align: center;
+}
+.for{
+    text-align: center;
+    font-weight: bolder;
+    padding-bottom: 5px;
+}
+.use{
+    width: 240px;
+    height: 35px;
+    border-radius: 20px;
+    border-color: transparent;
+    background-color: #fdb85ef3;
+    color: #000;
+    font-size: 13px;
+    margin-left: 320px;
+    text-align: center;
+}
+.use:hover{
+    cursor: pointer;
+    background-color: transparent;
+    transition-duration: 0.5s;
+    border-color:  #fdb85ef3;
+}
+.log{
+    margin-left: 300px;
+}
+.int{
+    width: 326px;
+    height: 35px;
+    border-color: #FFF9F2;
+    padding-left: 70px;
+    margin-left: 300px;
+}
+.btn-login{
+    width: 326px;
+    height: 35px;
+    background-color: #fdb85ef3;
+    border-color: transparent;
+    color: #000;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 20px;
+    margin-left: 300px;
+}
+.btn-login:hover{
+    cursor: pointer;
+    background-color: transparent;
+    transition-duration: 0.5s;
+    border-color:  #fdb85ef3;
+}
