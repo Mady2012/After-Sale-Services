@@ -1,0 +1,143 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: 'poppins';
+    background-color: rgba(211, 211, 211, 0.258);
+}
+header{
+    /* position: fixed; */
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* padding: 0 2px; */
+}
+.top-bar .logo{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: #f58d08;
+}
+.top-bar .top-nav{
+    font-size: 12px;
+    display: flex;
+    margin-right: 300px;
+}
+.search{
+    border-radius: 15px;
+    padding: 5px;
+    width: 300px;
+    border-color: #fff9f2;
+}
+aside{
+    background-color: #fff;
+    height: 85%;
+    width: 15%;
+    right: 50%;
+    padding-top: 6px;
+ }
+ .sidebar{
+  top: 70px;
+  left: 0;
+  bottom: 0;
+  width: 180px;
+  background-color: #fff9f2;
+  /* padding: 20px 10px; */
+}
+
+.sidebar .logo {
+  font-weight: bold;
+  color: orange;
+  margin-bottom: 10px;
+}
+.menu a{
+    text-decoration: none;
+    justify-content: space-between;
+    color: black;
+    font-size: 14px;
+    padding: 10px;
+
+} 
+.board{
+    padding-bottom: 10px;
+    border: 1px dashed #f58d08;
+    padding: 4px 8px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #f4a135;
+}
+.btn{
+    margin-top: 100px;
+    border-radius: 20px;
+    border-color: transparent;
+    background-color: #f58d08;
+    color: #fff;
+    font-size: 13px;
+    text-align: center;
+    margin-left: 30px;
+    
+}
+.btn:hover{
+    cursor: pointer;
+    background-color: transparent;
+    transition-duration: 0.3s;
+    border-color:  #fdb85ef3;
+    color: #000;
+    box-shadow: 0px 4px 10px rgba(255,123,0,0.5);
+}
+img{
+    height: 40px;
+    padding-top: 10px;
+    margin-left: 25px;
+    padding-bottom: 10px;
+  }
+  .fa{
+    color: #f58d08;
+  }
+.left-side{
+position: absolute;
+left: 220px;
+display: flex;
+position: absolute;
+justify-content: space-between;
+bottom: 15px;
+height: 85%;
+width: 1020px;
+border-radius: 12px;
+/* box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.747); */
+}
+.global{
+    display: flex;
+    gap: 20px;
+}
+.new {
+    background: #fff;
+    padding: 10px;
+    border-radius: 12px;
+    width: 220px;
+    min-height: 400px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .new h3 {
+    margin-bottom: 15px;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .ticket-placeholder {
+    flex: 1;
+    border: 2px dashed #ddd;
+    border-color: #f4a13533;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aaa;
+    font-size: 14px;
+  }

@@ -1,31 +1,32 @@
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="Icon\css\all.min.css">
-    <link rel="stylesheet" href="dash.css">
+    <link rel="stylesheet" href="../Icon/css/all.min.css">
+    <link rel="stylesheet" href="../css/dash.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <form action="" method="post">
         <main>
             <header class="top-bar">
-                <div class="logo"><h1>LOGO</h1></div>
+                   <img src="../logo_inov.png" alt="">
+                </div>
                 <nav class="top-nav">
                     <i class="fa fa-dashboard"></i>Dashboard
                 </nav>
                 <div class="user">
-                    <img src="" alt="">
+                    <!-- <img src="../avatar.jpeg" alt=""> -->
                 </div>
             </header>
             <aside class="side-bar">
-                 <div class="logo"><h1>LOGO</h1></div>
                 <div class="menu">
-                   <p><i class="fa fa-dashboard"></i><a href="#">Dashboard</a></p>
-                    <p><i class="fa-fa-first-aid"></i><a href="">Support List</a></p>
-                    <p><i class="fa fa-ticket"></i><a href="">Support Request</a></p>
-                    <p><i class="fa-fa-diagram-project"></i><a href="">Project</a></p>
-                    <p><i class="fa-fa-bars-progress"></i><a href="">Progress</a></p>
+                   <p class="board"><i class="fa fa-dashboard"></i><a href="#">Dashboard</a></p>
+                    <p><i class="fa fa-first-aid"></i><a href="#">Support List</a></p>
+                    <p><i class="fa fa-ticket"></i><a href="#">Support Request</a></p>
+                    <p><i class="fa fa-diagram-project"></i><a href="#">Project</a></p>
+                    <p><i class="fa fa-bars-progress"></i><a href="#">Progress</a></p>
                     <input type="button" class="btn" value="Disconnect">
                 </div>
                 </aside>
@@ -52,44 +53,29 @@
                          <h4>New project</h3>
                     </div>
                 </div>
-                </section>
+            </section>
+            <div class="join">
                 <div class="list">
                     <h3>Support List Summary</h3>
-
-                    <div class="circle-container">
-        <div class="circle" id="circle1">
-            <div class="progress" id="progress1"></div>
-            <div class="percentage" id="percentage1">0%</div>
-            
-        </div>
-        <div class="circle" id="circle2">
-            <div class="progress" id="progress2"></div>
-            <div class="percentage" id="percentage2">0%</div>
-        </div>
-        <div class="circle" id="circle3">
-            <div class="progress" id="progress3"></div>
-            <div class="percentage" id="percentage3">0%</div>
-        </div>
-    </div>
-    <div class="state">
-        <h4>In progress</h4>
-        <h4>In review</h4>
-        <h4>Done</h4>
-    </div>
+                    <canvas id="myChart" width="200" height="200"></canvas>
                 </div>
                 <div class="table">
                 <table>
                     <h3>Recent Support Request</h3>
                     <thead>
                         <tr>
-                            <th>Picture</th>
+                            <th>Profile</th>
                             <th>Name</th>
                             <th>Email</th>
                         </tr>
                     </thead>
                 </table>
                 </div>
+            </div>
+            <div>
+            </div>
         </main>
     </form>
+    <script src="../javascript/dash.js"></script>
 </body>
 </html>

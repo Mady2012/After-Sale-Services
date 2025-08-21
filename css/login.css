@@ -2,6 +2,82 @@ body{
     margin: 0;
     padding: 0;
     background-color: #FFF9F2;
+    font-family: 'poppins';
+}
+main{
+    border-style: inset;
+    background-color: #fff;
+    border-color: transparent;
+    width: 40%;
+    height: 500px;
+    margin: 40px;
+    margin-left: 400px;
+    border-radius: 12px;
+    box-shadow: 0px 8px 20px rgba(236, 148, 25, 0.15);
+}
+.head{
+    text-align: center;
+    padding-top: 50px;
+}
+.infos{
+    padding-top: 10px;
+    /* text-align: center; */
+    color: #f28d08;
+    font-weight: bold;
+}
+.or{
+    color: rgb(207, 202, 202);
+    font-size: 12px;
+    text-align: center;
+}
+.for{
+    text-align: center;
+    font-weight: bolder;
+    padding-bottom: 5px;
+    color: #f28d08;
+}
+.log{
+    padding-left: 100px;
+}
+.int{
+    width: 300px;
+    height: 35px;
+    margin-top: 10px;
+    border-color: transparent;
+    outline: none;
+    border-radius: 5px;
+    box-shadow: 0px 0px 8px rgba(242, 182, 127, 0.4);
+    margin-left: 100px;
+}
+.int:focus{
+  border-color: #ff7b00;
+  outline: none;
+  box-shadow: 0px 0px 8px rgba(255,123,0,0.4);
+}
+.btn-login{
+    width: 326px;
+    height: 35px;
+    background-color: #fdb85ef3;
+    border-color: transparent;
+    color: #000;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 20px;
+    margin-left: 100px;
+    margin-top: 70px;
+    box-shadow: 0px 5px 10px rgba(255,123,0,0.4);
+}
+.btn-login:hover{
+    cursor: pointer;
+    background-color: transparent;
+    transition-duration: 0.5s;
+    border-color:  #fdb85ef3;
+} 
+
+/* body{
+    margin: 0;
+    padding: 0;
+    background-color: #FFF9F2;
     font-family: poppins; 
 }
 
@@ -9,17 +85,19 @@ main{
     align-items: center;
     padding-top: 200px;
     border-radius: 15px;
-    padding-bottom: 50%;
    
 }
-fieldset{
-    border-style: outset;
+fieldset{ */
+    /* border-style: outset;
     width: 70%;
     height: 90%;
+    margin-left: 20px;
     background-color: #fff;
     border-radius: 15px;
+    align-items: center; */
     
-}
+    
+/* }
 header{
     padding-bottom: 15px;
 }
@@ -45,16 +123,16 @@ p{
     background-color: #fdb85ef3;
     color: #000;
     font-size: 13px;
-    margin-left: 320px;
-    text-align: center;
+    /* margin-left: 320px; */
+    /* text-align: center;
 }
 .use:hover{
     cursor: pointer;
     background-color: transparent;
     transition-duration: 0.5s;
     border-color:  #fdb85ef3;
-}
-.log{
+} */
+/* .log{
     margin-left: 300px;
 }
 .int{
@@ -80,4 +158,4 @@ p{
     background-color: transparent;
     transition-duration: 0.5s;
     border-color:  #fdb85ef3;
-}
+} */ 

@@ -1,0 +1,247 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: poppins;
+}
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background-color: #fff9f2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* padding: 0 2px; */
+}
+.top-bar .logo{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: #f58d08;
+}
+.top-bar .top-nav{
+    font-size: 12px;
+    display: flex;
+    margin-right: 800px;
+}
+/* .menu{
+    position: fixed;
+    top: 20px;
+    left: 0;
+    right: 0;
+    width: 40%;
+    background-color: #fff9f2;
+    height: 100px
+}
+.menu a{
+    text-decoration: none;
+    justify-content: space-between;
+    color: black;
+    font-size: 14px;
+} */
+ aside{
+    background-color: #fff9f2;
+    height: 100%;
+    width: 15%;
+ }
+ .sidebar{
+  top: 70px;
+  left: 0;
+  bottom: 0;
+  width: 180px;
+  background-color: #fff9f2;
+  padding: 20px 10px;
+}
+
+.sidebar .logo {
+  font-weight: bold;
+  color: orange;
+  margin-bottom: 20px;
+}
+.menu a{
+    text-decoration: none;
+    justify-content: space-between;
+    color: black;
+    font-size: 14px;
+} 
+.btn{
+    margin-top: 100px;
+    border-radius: 20px;
+    border-color: transparent;
+    background-color: #f58d08;
+    color: #fff;
+    font-size: 13px;
+    text-align: center;
+}
+.btn:hover{
+    cursor: pointer;
+    background-color: transparent;
+    transition-duration: 0.5s;
+    border-color:  #fdb85ef3;
+    color: #000;
+}
+.status{
+    display: flex;
+}
+.left-side{
+    position: absolute;
+    display: flex;
+    left: 250px;
+    justify-content: space-between;
+    bottom: 350px;
+}
+.left-side .sup{
+    border-style: outset;
+    border-radius: 10px;
+    display: block;
+    border-style: outset;
+    border-color: #fff9f2;
+    margin-right: 30px;
+     width: 150px;
+     padding-left: 10px;
+
+}
+.left-side .done{
+    border-style: outset;
+    border-radius: 10px;
+    display: block;
+     border-style: outset;
+    border-color: #fff9f2;
+     margin-right:30px;
+      width: 150px;
+      padding-left: 10px;
+
+}
+.left-side .review{
+    border-style: outset;
+    border-radius: 10px;
+    display: block;
+     border-style: outset;
+    border-color: #fff9f2;
+     margin-right: 30px;
+      width: 150px;
+      padding-left: 10px;
+
+}
+.left-side .prog{
+    border-style: outset;
+    border-radius: 10px;
+    display: block;
+     border-style: outset;
+    border-color: #fff9f2;
+     margin-right: 30px;
+      width: 150px;
+      padding-left: 10px;
+
+}
+.left-side .new{
+    border-style: outset;
+    border-radius: 10px;
+    display: block;
+    border-style: outset;
+    border-color: #fff9f2;
+     margin-right: 30;
+     width: 150px;
+     padding-left: 10px;
+
+}
+.list{
+     position: absolute;
+    display: flex;
+    left: 250px;
+    justify-content: space-between;
+    top: 300px;
+    display: block;
+    border-style: inset;
+    border-radius: 10px;
+    width: 30%;
+    height: 50%;
+}
+.table{
+     position: absolute;
+    display: flex;
+    left: 750px;
+    justify-content: space-between;
+    top: 300px;
+    display: block;
+    border-style: inset;
+    border-radius: 10px;
+    width: 30%;
+    height: 50%;
+}
+ .circle-container {
+    display: flex;
+    justify-content: space-around;
+    width: 75%;
+    margin: 40px ;
+}
+.circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 5px solid #ddd;
+    position: relative;
+    overflow: hidden;
+    margin-right: "30px";
+}
+
+.progress {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #f58d08;
+    bottom: 0;
+    left: 0;
+    /* transform-origin: bottom center;
+     transform: scaleY(0); /*Initial state: no progress */ 
+    /* transition: transform 1s ease-in-out; Smooth animation */
+} 
+
+.percentage{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.2em;
+    color: #333;
+}
+
+/* Example progress values */
+#progress1 {
+    transform: scaleY(0.7); /* 70% */
+}
+
+#progress2 {
+    transform: scaleY(0.3); /* 30% */
+}
+
+#progress3 {
+    transform: scaleY(0.9); /* 90% */
+}
+.fa{
+    color: #f58d08;
+}
+.state{
+    display: flex;
+    justify-content: space-around;
+}
+/* 
+#percentage1 {
+    content: '70%';
+}
+
+#percentage2 {
+    content: '30%';
+}
+
+#percentage3 {
+    content: '90%';
+} */
+ table, td{
+    width: 100%;
+  border-collapse: collapse;
+  background: fixed;
+  background-color: #f58d08;
+  /* padding-inline: 100px; */
+  color: #000;
+}

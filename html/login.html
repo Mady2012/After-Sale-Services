@@ -1,6 +1,7 @@
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="../Icon/css/all.min.css">
+    <link rel="stylesheet" href="../css/login.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -8,19 +9,20 @@
 <body>
     <form action="" method="post">
      <main>
-        <fieldset>
+        <!-- <fieldset> -->
         <header>
+            <div class="head">
            <P class="for">LOGIN FORM</P>
-           <input type="button" class="use" value="Use Google account">
-           <p class="or">OR</p>
+           </div>
         </header>
-        
-        <P><label for="text" class="log">Full Name</label></P>
-        <P><input type="text" class="int" required></P>
+        <div class="infos">
+        <P><label for="text" class="log">UserName</label></P>
+        <P><input type="text" class="int" required pl><i class="fa fa-house-user"></i></P>
        <P> <label for="password" class="log">Password</label></P>
         <P><input type="text" class="int" required></P>
-       <P> <input type="button"  class="btn-login" value="LOGIN"></P>
-        </fieldset>
+       <P> <input type="submit"  class="btn-login" value="LOGIN"></P>
+       </div>
+        <!-- </fieldset> -->
      </main>
     </form>
 </body>

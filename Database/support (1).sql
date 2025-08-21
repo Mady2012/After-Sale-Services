@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Aug 17, 2025 at 09:30 PM
+-- Generation Time: Aug 19, 2025 at 11:41 AM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -30,26 +30,29 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `project`;
 CREATE TABLE IF NOT EXISTS `project` (
   `ProjectID` int(11) NOT NULL AUTO_INCREMENT,
-  `Project Name` int(11) NOT NULL,
-  `Description` int(11) NOT NULL,
-  `Status` int(11) NOT NULL,
-  PRIMARY KEY (`ProjectID`)
+  `RequestID` int(11) NOT NULL,
+  `ProjectName` varchar(20) NOT NULL,
+  `Description` text NOT NULL,
+  `Status` varchar(20) NOT NULL,
+  PRIMARY KEY (`ProjectID`),
+  KEY `RequestID` (`RequestID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `support list`
+-- Table structure for table `request`
 --
 
-DROP TABLE IF EXISTS `support list`;
-CREATE TABLE IF NOT EXISTS `support list` (
-  `RequestID` int(6) NOT NULL AUTO_INCREMENT,
-  `ClientName` varchar(30) NOT NULL,
-  `Email` varchar(30) NOT NULL,
-  `Phone Number` int(20) NOT NULL,
-  `Message` varchar(50) NOT NULL,
-  PRIMARY KEY (`RequestID`)
+DROP TABLE IF EXISTS `request`;
+CREATE TABLE IF NOT EXISTS `request` (
+  `RequestID` int(11) NOT NULL AUTO_INCREMENT,
+  `UserID` int(11) NOT NULL,
+  `Request_Title` varchar(50) NOT NULL,
+  `Description` text NOT NULL,
+  `Image` varchar(256) NOT NULL,
+  PRIMARY KEY (`RequestID`),
+  KEY `UserID` (`UserID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -60,11 +63,12 @@ CREATE TABLE IF NOT EXISTS `support list` (
 
 DROP TABLE IF EXISTS `task`;
 CREATE TABLE IF NOT EXISTS `task` (
-  `Task ID` int(6) NOT NULL AUTO_INCREMENT,
-  `Project ID` int(6) NOT NULL,
-  `Project Name` varchar(30) NOT NULL,
+  `TaskID` int(6) NOT NULL AUTO_INCREMENT,
+  `ProjectID` int(11) NOT NULL,
+  `ProjectName` varchar(30) NOT NULL,
   `Status` varchar(30) NOT NULL,
-  PRIMARY KEY (`Task ID`)
+  PRIMARY KEY (`TaskID`),
+  KEY `ProjectID` (`ProjectID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -75,12 +79,13 @@ CREATE TABLE IF NOT EXISTS `task` (
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `First Name` int(6) NOT NULL,
-  `Last Name` int(30) NOT NULL,
+  `UserID` int(11) NOT NULL AUTO_INCREMENT,
+  `FirstName` int(6) NOT NULL,
+  `LastName` int(30) NOT NULL,
   `Email` int(30) NOT NULL,
-  `Phone Number` int(20) NOT NULL,
-  PRIMARY KEY (`ID`)
+  `PhoneNumber` int(20) NOT NULL,
+  `Role` varchar(30) NOT NULL,
+  PRIMARY KEY (`UserID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 COMMIT;
 
