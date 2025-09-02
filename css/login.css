@@ -13,7 +13,7 @@ main{
     margin: 40px;
     margin-left: 400px;
     border-radius: 12px;
-    box-shadow: 0px 8px 20px rgba(236, 148, 25, 0.15);
+    box-shadow: 0px 8px 20px rgba(236, 148, 25, 0.034);
 }
 .head{
     text-align: center;
@@ -25,11 +25,6 @@ main{
     color: #f28d08;
     font-weight: bold;
 }
-.or{
-    color: rgb(207, 202, 202);
-    font-size: 12px;
-    text-align: center;
-}
 .for{
     text-align: center;
     font-weight: bolder;
@@ -39,7 +34,23 @@ main{
 .log{
     padding-left: 100px;
 }
-.int{
+.int, textarea {
+    margin-left: 100px;
+    width: 300px;
+    height: 35px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: border 0.2s ease;
+  }
+  
+  .int:focus, textarea:focus {
+    border: 1px solid #f58d08;
+    box-shadow: inset 1px 1px 4px rgba(0,0,0,0.1);
+  }
+/* .int{
     width: 300px;
     height: 35px;
     margin-top: 10px;
@@ -53,7 +64,7 @@ main{
   border-color: #ff7b00;
   outline: none;
   box-shadow: 0px 0px 8px rgba(255,123,0,0.4);
-}
+} */
 .btn-login{
     width: 326px;
     height: 35px;

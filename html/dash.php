@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+}
+?>
+
 <html lang="en">
 <head>
     <link rel="stylesheet" href="../Icon/css/all.min.css">
@@ -17,17 +24,20 @@
                     <i class="fa fa-dashboard"></i>Dashboard
                 </nav>
                 <div class="user">
+                    <?php
+                    echo "WELCOME ".$_SESSION['username'].' !!!'; 
+                    ?>
                     <!-- <img src="../avatar.jpeg" alt=""> -->
                 </div>
             </header>
             <aside class="side-bar">
                 <div class="menu">
-                   <p class="board"><i class="fa fa-dashboard"></i><a href="#">Dashboard</a></p>
-                    <p><i class="fa fa-first-aid"></i><a href="#">Support List</a></p>
-                    <p><i class="fa fa-ticket"></i><a href="#">Support Request</a></p>
-                    <p><i class="fa fa-diagram-project"></i><a href="#">Project</a></p>
+                   <p class="board"><i class="fa fa-dashboard"></i><a href="dash.php">Dashboard</a></p>
+                    <p><i class="fa fa-first-aid"></i><a href="list.php">Support List</a></p>
+                    <p><i class="fa fa-ticket"></i><a href="request.php">Support Request</a></p>
+                    <p><i class="fa fa-diagram-project"></i><a href="project.php">Project</a></p>
                     <p><i class="fa fa-bars-progress"></i><a href="#">Progress</a></p>
-                    <input type="button" class="btn" value="Disconnect">
+                    <a href="disconnect.php" class="btn">Disconnect</a>
                 </div>
                 </aside>
             <section class="left-side">

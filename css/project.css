@@ -130,7 +130,7 @@ border-radius: 12px;
     text-align: center;
   }
 
-  .ticket-placeholder {
+  .ticket {
     flex: 1;
     border: 2px dashed #ddd;
     border-color: #f4a13533;
@@ -140,4 +140,9 @@ border-radius: 12px;
     justify-content: center;
     color: #aaa;
     font-size: 14px;
+    /* background-color: white;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); */
   }
