@@ -14,16 +14,19 @@ $stmt->execute();
 $result = $stmt->fetchAll();
 
 
-if(isset($_GET['delete'])){
-    $id = $_GET['user_id'];
+if (isset($_GET['delete'])) {
+    $id = $_GET['request_id'];
 
-    
-    $stmt = $conn->prepare("DELETE FROM request WHERE UserID = :user_id");
-    $stmt->bindParam(":user_id", $id);
-    $stmt->execute();
-    header('Location:list.php');
-
+    try {   
+        $stmt = $conn->prepare("DELETE FROM request WHERE RequestID = :request_id");
+        $stmt->bindParam(":request_id", $id);
+        $stmt->execute();
+    }
+catch (PDOException $e) {
+    echo "Erreur SQL : " . $e->getMessage();
 }
+}
+
 
 ?>
 
@@ -43,23 +46,17 @@ if(isset($_GET['delete'])){
                 <nav class="top-nav">
                     <i class="fa fa-first-aid"></i>Support List
                 </nav>
-                <div class="user">
-                    <img src="../avatar.jpeg" alt="">
-                </div>
             </header>
             <aside class="side-bar">
                 <div class="menu">
-                   <p><i class="fa fa-dashboard"></i><a href="C:\wamp64\www\After-Sales\html\dash.php">Dashboard</a></p>
-                    <p class="board"><i class="fa fa-first-aid"></i><a href="C:\wamp64\www\After-Sales\html\list.php">Support List</a></p>
-                    <p><i class="fa fa-ticket"></i><a href="C:\wamp64\www\After-Sales\html\request.php">Support Request</a></p>
-                    <p><i class="fa fa-diagram-project"></i><a href="C:\wamp64\www\After-Sales\html\project.php">Project</a></p>
+                   <p><i class="fa fa-dashboard"></i><a href="dash.php">Dashboard</a></p>
+                    <p class="board"><i class="fa fa-first-aid"></i><a href="list.php">Support List</a></p>
+                    <p><i class="fa fa-ticket"></i><a href="request.php">Support Request</a></p>
+                    <p><i class="fa fa-diagram-project"></i><a href="project.php">Project</a></p>
                     <p><i class="fa fa-bars-progress"></i><a href="#">Progress</a></p>
                     <a href="disconnect.php" class="btn">Disconnect</a>
                 </div>
                 </aside>
-                <!-- <div class="int"> 
-                    <i class="fa fa-researchgate"></i><input type="text" placeholder="search">
-                </div> -->
 
                 <table>
                     <thead>
@@ -90,7 +87,7 @@ if(isset($_GET['delete'])){
                 <?php else: ?>
                     No image
                 <?php endif; ?>
-                <a href="list.php?delete<?= $user['UserID']?>"onclick="return confirm('Are you sure you want to delete')"><button name="delete" >Delete</button></a>
+                <a href="list.php?delete<?= $user['UserID']?>"onclick="return confirm('Are you sure you want to delete')"><button name="delete" class="btn-1" >Delete</button></a>
             </td>
             </tr>
             <?php endforeach; ?>

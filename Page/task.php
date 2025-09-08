@@ -41,6 +41,15 @@ if ($status === 'done') {
     $stmt->execute(['pid' => $projectId]);
 }
 
+try{
+    $stmt->execute();
+    echo "Task Added successfully";
+    header("Location: project.php");
+    exit;
+  }
+  catch(PDO_Exception $e){
+    echo "Erreur" .$sql . "<br>" . $e->getMessage();
+  }
 }
 
 ?>

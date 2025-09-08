@@ -2,46 +2,70 @@
 session_start();
 include 'connection.php';
 
-if(isset($_POST['submit'])){
-    $projet_id = $_GET['projet_id'];
-    $taskname = $_POST['taskname'];
-    $status = $_POST['status'];
-
-    $lastProjectId = $conn->lastInsertId();
-
-$sql = "INSERT INTO task (ProjectID, TaskName, Status) VALUES (:projectid, :taskname, :status)";
-$stmt = $conn->prepare($sql);
-$stmt->bindParam(':projectid', $lastProjectId);
-$stmt->bindParam(':taskname', $taskname);
-$stmt->bindParam(':status', $status);
+$sql1 = "SELECT ProjectID, ProjectName FROM project";
+$stmt1 = $conn->prepare($sql1);
+$stmt1->execute();
+$projects = $stmt1->fetchAll(PDO::FETCH_ASSOC);
 
 
-try{
-  $stmt->execute();
-  echo "Task Added successfully";
-  header("Location: project.php");
-  exit;
-}
-catch(PDO_Exception $e){
-  echo "Erreur" .$sql . "<br>" . $e->getMessage();
-}
-if ($status === 'in progress') {
-    $sql = "UPDATE project SET Status = 'in progress' WHERE ProjectID = :pid";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute(['pid' => $projectId]);
-}
-if ($status === 'in review') {
-    $sql = "UPDATE project SET Status = 'in progress' WHERE ProjectID = :pid";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute(['pid' => $projectId]);
-}
-if ($status === 'done') {
-    $sql = "UPDATE project SET Status = 'done' WHERE ProjectID = :pid";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute(['pid' => $projectId]);
-}
+$sql3 = "SELECT UserID, UserName FROM user WHERE Role = 'Technician' ";
+$stmt3 = $conn->prepare($sql3);
+$stmt3->execute();
+$roles = $stmt3->fetchAll(PDO::FETCH_ASSOC);
 
-}
+if (isset($_POST['submit'])) {
+
+  $projects = $_POST['projectid'];
+  $taskname = $_POST['taskname'];
+  $userid = $_POST['userid'];
+  $status = $_POST['status'];
+
+  try {
+
+    $sql2 = "INSERT INTO task (ProjectID, TaskName, TechnicianID, Status) VALUES (:projectid, :taskname, :technician_id, :status)";
+    $stmt2 = $conn->prepare($sql2);
+    $stmt2->bindParam(':projectid', $projects);
+    $stmt2->bindParam(':taskname', $taskname);
+    $stmt2->bindParam(':technician_id', $userid);
+    $stmt2->bindParam(':status', $status);
+
+      $stmt2->execute();
+        
+
+      header("Location: project.php");
+      exit;
+
+    } catch(PDOException $e){
+      echo "Erreur" .$sql . "<br>" . $e->getMessage();
+    }
+  }
+
+// if ($status === 'in progress') {
+//     $sql = "UPDATE project SET Status = 'in progress' WHERE ProjectID = :projectid";
+//     $stmt = $conn->prepare($sql);
+//     $stmt->execute(['projectid' => $project_id]);
+// }
+// if ($status === 'in review') {
+//     $sql = "UPDATE project SET Status = 'in progress' WHERE ProjectID = :projectid";
+//     $stmt = $conn->prepare($sql);
+//     $stmt->execute(['projectid' => $project_Id]);
+// }
+// if ($status === 'done') {
+//     $sql = "UPDATE project SET Status = 'done' WHERE ProjectID = :projectid";
+//     $stmt = $conn->prepare($sql);
+//     $stmt->execute(['projectid' => $project_id]);
+// }
+
+// try{
+//     $stmt->execute();
+//     echo "Status Updated succesffully";
+//     header("Location: project.php");
+//     exit;
+//   }
+//   catch(PDO_Exception $e){
+//     echo "Erreur" .$sql . "<br>" . $e->getMessage();
+//   }
+
 
 ?>
 <html lang="en">
@@ -55,6 +79,24 @@ if ($status === 'done') {
     <form action="#" method="post">
         <main>
            <div class="infos">
+           <P><label for="projectid" class="log">ProjectID</label></P>
+          <select name="projectid" id="projectid" class="int" required>
+            <option value="">Choose a project</option>
+            <?php foreach ($projects as $project): ?>
+                <option value="<?php echo $project['ProjectID']; ?>"><?php echo $project['ProjectName']; ?>
+            </option>
+        <?php endforeach; ?>
+          </select>
+
+          <P><label for="projectid" class="log">TechnicianID</label></P>
+          <select name="userid" id="userid" class="int" required>
+            <option value="">Choose a technician</option>
+            <?php foreach ($roles as $role): ?>
+                <option value="<?php echo $role['UserID']; ?>"><?php echo $role['UserName']; ?>
+            </option>
+        <?php endforeach; ?>
+          </select>
+
            <P><label for="text" class="log">TaskName</label></P>
            <P><input type="text" name="taskname" class="int" required ></P>
           <P> <label for="text" class="log">Status</label></P>

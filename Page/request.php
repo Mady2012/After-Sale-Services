@@ -12,17 +12,11 @@ $uploadDir = "../image/";
   $fileName = time() . "_" . basename($imagename);
   $targetFile = $uploadDir . $fileName;
 
+   
   
-  // $check = getimagesize($_FILES['image']['tmp_name']);
   move_uploaded_file($_FILES['image']['tmp_name'], $targetFile);
   $image = $uploadDir . $fileName;
-  // if ($check == true) {
-    
-  //     if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFile)) {
-          
-  //         $image = $uploadDir . $fileName;
-  //     } 
-  // }
+  
 $sql = "INSERT INTO request (Request_Title, Description, Image) VALUES (:request_title, :description, :image)";
 $stmt = $conn->prepare($sql);
 $stmt->bindParam(':request_title', $request_title);
