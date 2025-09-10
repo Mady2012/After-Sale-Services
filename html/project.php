@@ -34,6 +34,7 @@ $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <p><i class="fa fa-first-aid"></i><a href="list.php">Support List</a></p>
                     <p><i class="fa fa-ticket"></i><a href="request.php">Support Request</a></p>
                     <p  class="board"><i class="fa fa-diagram-project"></i><a href="project.php">Project</a></p>
+                    <p><i class="fa "></i><a href="task_list.php">Task_List</a></p>
                     <p><i class="fa fa-bars-progress"></i><a href="#">Progress</a></p>
                     <a href="disconnect.php" class="btn">Disconnect</a>
                 </div>
@@ -48,7 +49,7 @@ $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <p><?= ($project['RequestID']) ?></p>
                         <p><?= ($project['Description']) ?></p>
                         <p>Status : <?= ($project['Status']) ?></p>
-                        <a href="task.php">Add Task</a>
+                        <a href="task_list.php?projectid=<?php echo $project['ProjectID']; ?>">View Task</a>
               <?php endif; ?>
               <?php endforeach; ?>
 
@@ -63,7 +64,8 @@ $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <p><?= ($project['RequestID']) ?></p>
                         <p><?= ($project['Description']) ?></p>
                         <p>Status : <?= ($project['Status']) ?></p>
-                        <a href="task.php">Add Task</a>
+                        <a href="task_list.php?projectid=<?php echo $project['ProjectID']; ?>">View Task</a>
+
                 <?php endif; ?>
                 <?php endforeach; ?>
             </div>
@@ -75,7 +77,8 @@ $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <p><?= ($project['RequestID']) ?></p>
                         <p><?= ($project['Description']) ?></p>
                         <p>Status : <?= ($project['Status']) ?></p>
-                        <a href="task.php">Add Task</a>
+                        <a href="task_list.php?projectid=<?php echo $project['ProjectID']; ?>">View Task</a>
+
                 <?php endif; ?>
                 <?php endforeach; ?>
             </div>
@@ -87,7 +90,8 @@ $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <p><?= ($project['RequestID']) ?></p>
                         <p><?= ($project['Description']) ?></p>
                         <p>Status : <?=($project['Status']) ?></p>
-                        <a href="task.php">Add Task</a>
+                        <a href="task_list.php?projectid=<?php echo $project['ProjectID']; ?>">View Task</a>
+
                 <?php endif; ?>
                 <?php endforeach; ?>
             </div>

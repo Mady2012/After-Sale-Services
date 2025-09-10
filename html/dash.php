@@ -36,6 +36,7 @@ if (!isset($_SESSION['username'])) {
                     <p><i class="fa fa-first-aid"></i><a href="list.php">Support List</a></p>
                     <p><i class="fa fa-ticket"></i><a href="request.php">Support Request</a></p>
                     <p><i class="fa fa-diagram-project"></i><a href="project.php">Project</a></p>
+                    <p><i class="fa "></i><a href="task_list.php">Task_List</a></p>
                     <p><i class="fa fa-bars-progress"></i><a href="#">Progress</a></p>
                     <a href="disconnect.php" class="btn">Disconnect</a>
                 </div>

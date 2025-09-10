@@ -2,9 +2,16 @@
 session_start();
 include 'connection.php';
 
+
+$sql1 = "SELECT GroupID, GroupName FROM groupe";
+$stmt1 = $conn->prepare($sql1);
+$stmt1->execute();
+$groups = $stmt1->fetchAll(PDO::FETCH_ASSOC);
+
+
 if(isset($_POST['submit'])){
-    // if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 if(isset($_POST['username'], $_POST['email'], $_POST['number'], $_POST['password'], $_POST['role'])){
+$groupid = $_POST['groupid'];
 $username = $_POST['username'];
 $email = $_POST['email'];
 $number = $_POST['number'];
@@ -13,8 +20,9 @@ $role = $_POST['role'];
 
 $password_hashed = password_hash($password, PASSWORD_DEFAULT);
 
-$sql = "INSERT INTO user(UserName, Email, PhoneNumber, Password, Role) VALUES(:username, :email, :number, :password, :role)";
+$sql = "INSERT INTO user(GroupID, UserName, Email, PhoneNumber, Password, Role) VALUES(:groupid, :username, :email, :number, :password, :role)";
 $stmt = $conn->prepare($sql);
+$stmt->bindParam(':groupid', $groupid);
 $stmt->bindParam(':username', $username);
 $stmt->bindParam(':email', $email);
 $stmt->bindParam(':number', $number);
@@ -51,6 +59,15 @@ catch(PDO_Exception $e){
            </div>
         </header>
         <div class="infos">
+
+        <P><label for="text" class="log">GoupID</label></P>
+        <select name="groupid" id="groupid" class="int" required>
+            <option value="">Choose a group</option>
+            <?php foreach ($groups as $group): ?>
+                <option value="<?php echo $group['GroupID']; ?>"><?php echo $group['GroupName']; ?>
+            </option>
+        <?php endforeach; ?>
+          </select>
         <P><label for="text" class="log">UserName</label></P>
         <P><input type="text" name="username" class="int" required ></P>
        <P> <label for="text" class="log">Email</label></P>
