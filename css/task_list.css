@@ -1,4 +1,4 @@
-body{
+/* body{
     margin: 0;
     padding: 0;
     font-family: 'poppins';
@@ -14,28 +14,18 @@ header{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* padding: 0 2px; */
-}
-.top-bar .logo{
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    color: #f58d08;
-}
-.top-bar .top-nav{
-    font-size: 12px;
-    display: flex;
-    margin-right: 800px;
 }
 aside{
     background-color: #fff;
     height: 85%;
-    width: 15%;
+    width: 10%;
     padding-top: 6%;
  }
  .sidebar{
   top: 70px;
   left: 0;
   bottom: 0;
-  width: 180px;
+  width: 120px;
   background-color: #fff9f2;
   padding: 20px 10px;
 }
@@ -52,15 +42,7 @@ aside{
     font-size: 14px;
     padding: 10px;
 
-} 
-.board{
-    padding-bottom: 10px;
-    border: 1px dashed #f58d08;
-    padding: 4px 8px;
-    font-weight: bold;
-    color: #fff;
-    background-color: #f4a135;
-}
+}  */
 .btn{
     margin-top: 100px;
     border-radius: 20px;
@@ -82,36 +64,33 @@ aside{
   padding-top: 10px;
   margin-left: 25px;
 } */
-.fa{
+/* .fa{
   color: #f58d08;
 }
 .int{
     justify-items: end;
     top: 50px;
-}
+} */
 table{
     position: absolute;
-    left: 200px;
-    top: 100px;
-    padding-top: 25px;
-    margin-left: 5px;
+    left: 30px;
+    top: 140px;
+    padding-top: 35px;
+    /* margin-left: 10px; */
     display: block;
     border-radius: 5px;
-    /* border: 10px solid; */
-    /* border-color: #ffffff68; */
-     background-color: #ffffff;
-    /* border-style: inset;
-    border-radius: 12px; */
+    background-color: #ffffff;
     box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.05);
-    width: 85%;
-    height: 85%;
+    width: 95%;
+    height: 75%;
 }
 td, th{
     width: 15%;
-    margin-left: 10px;
-   
+    padding:  10px;
+    /* margin-left: 10px; */
+    text-align: start;
     border-collapse: collapse;
-    background: #d3d3d354;
+    /* background: #d3d3d354; */
     border: transparent;
 
   color: #000;

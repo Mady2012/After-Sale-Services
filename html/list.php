@@ -1,98 +1,85 @@
 <?php
-session_start();
 include 'connection.php';
+session_start();
 
-    $user['UserID'] = $_SESSION['user_id'];
-    $user['UserName']= $_SESSION['username'];
-
-
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+}
+  $user['UserID'] = $_SESSION['user_id'];
+  $user['UserName']= $_SESSION['username'];
 
 $sql = "SELECT * FROM request";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 
 $result = $stmt->fetchAll();
-
-
-if (isset($_GET['delete'])) {
-    $id = $_GET['request_id'];
-
-    try {   
-        $stmt = $conn->prepare("DELETE FROM request WHERE RequestID = :request_id");
-        $stmt->bindParam(":request_id", $id);
-        $stmt->execute();
-    }
-catch (PDOException $e) {
-    echo "Erreur SQL : " . $e->getMessage();
-}
-}
-
-
 ?>
 
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="../css/dash.css">
     <link rel="stylesheet" href="../Icon/css/all.min.css">
-    <link rel="stylesheet" href="../css/list.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <body>
-    <form action="" method="post">
-        <main>
-            <header class="top-bar">
-                <img src="../logo_inov.png" alt="">
-                <nav class="top-nav">
-                    <i class="fa fa-first-aid"></i>Support List
-                </nav>
-            </header>
-            <aside class="side-bar">
-                <div class="menu">
-                   <p><i class="fa fa-dashboard"></i><a href="dash.php">Dashboard</a></p>
-                    <p class="board"><i class="fa fa-first-aid"></i><a href="list.php">Support List</a></p>
-                    <p><i class="fa fa-ticket"></i><a href="request.php">Support Request</a></p>
-                    <p><i class="fa fa-diagram-project"></i><a href="project.php">Project</a></p>
-                    <p><i class="fa "></i><a href="task_list.php">Task_List</a></p>
-                    <p><i class="fa fa-bars-progress"></i><a href="#">Progress</a></p>
-                    <a href="disconnect.php" class="btn">Disconnect</a>
-                </div>
-                </aside>
+    <!-- side-bar -->
+    <?php
+    include '../include/sidebar.php'; 
+    ?> 
 
-                <table>
-                    <thead>
-                        <tr>
-                            <th>RequestID</th>
-                            <th>UserID</th>
-                            <th>UserName</th>
-                            <th>RequestTitle</th>
-                            <th>Description</th>
-                            <th>Image</th>
-                        </tr>
-                    </thead>
-                    <?php foreach ($result as $result): ?>
-            <tr>
+    <section id="interface">
 
-                <td><?= ($result['RequestID']) ?></td>
-                <td><?= (($user['UserID'])) ?></td>
-                <td><?= (($user['UserName'])) ?></td>
-                <td><?= ($result['Request_Title']) ?></td>
-                <td><?= ($result['Description']) ?></td>
-                
-  </td>
-  <td>
-                <?php if (!empty($result['Image'])): ?>
-                    <a href="<?= $result['Image'] ?>" >
-                        <img src="<?= $result['Image'] ?>" >
-                    </a>
-                <?php else: ?>
-                    No image
-                <?php endif; ?>
-                <a href="list.php?delete<?= $user['UserID']?>"onclick="return confirm('Are you sure you want to delete')"><button name="delete" class="btn-1" >Delete</button></a>
-            </td>
-            </tr>
-            <?php endforeach; ?>
-                </table>
-                </section>
+    <!-- navbar -->
+
+    <?php
+     include '../include/nav.php';
+   ?>
+        <h3 class="i-name">
+            Support List
+        </h3>
+        
+        <div class="board">
+            <table width="100%">
+                <thead>
+                    <tr>
+                    <td>Name</td>
+                    <td>Title</td>
+                    <td>Role</td>
+                    <td>Status</td>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($result as $result): ?>
+                    <tr>
+                        <td class="people">
+                            <img src="avatar.jpeg" alt="">
+                            <div class="people-de">
+                                <h5><?= (($user['UserName'])) ?></h5>
+                                <p>wendymadissone@gmail.com</p>
+                            </div>
+                        </td>
+                        <td class="people-des">
+                            <h5><?= ($result['Request_Title']) ?></h5>
+                            <p>Web dev</p>
+                        </td>
+                        <td class="active"><p>Active</p></td>
+                        <td class="role">
+                            <p>owner</p>
+                        </td>
+                        <td class="edit"><a href="#">Edit</a></td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <script>
+        $('#menu-btn').click(function(){
+            $('#menu').toggleClass("active");
+        })
+    </script>
 </body>
 </html>

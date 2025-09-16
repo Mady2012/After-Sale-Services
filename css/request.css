@@ -1,21 +1,4 @@
-body{
-    margin: 0;
-    padding: 0;
-    font-family: 'poppins';
-    background-color: #d3d3d35f
-}
-header{
-    /* position: fixed; */
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    background-color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    /* padding: 0 2px; */
-}
+
 .user img{
   height: 50px;
   padding-right: 30px;
@@ -33,48 +16,9 @@ img{
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     color: #f58d08;
 }
-.top-bar .top-nav{
-    font-size: 12px;
-    display: flex;
-    margin-right: 800px;
-}
-aside{
-    background-color: #fff;
-    height: 85%;
-    width: 15%;
-    right: 50%;
-    padding-top: 6px;
- }
- .sidebar{
-  top: 70px;
-  left: 0;
-  bottom: 0;
-  width: 180px;
-  background-color: #fff9f2;
-  /* padding: 20px 10px; */
-}
 
-.sidebar .logo {
-  font-weight: bold;
-  color: orange;
-  margin-bottom: 10px;
-}
-.menu a{
-    text-decoration: none;
-    justify-content: space-between;
-    color: black;
-    font-size: 14px;
-    padding: 10px;
 
-} 
-.board{
-    padding-bottom: 10px;
-    border: 1px dashed #f58d08;
-    padding: 4px 8px;
-    font-weight: bold;
-    color: #fff;
-    background-color: #f4a135;
-}
+
 .btn{
     margin-top: 100px;
     border-radius: 20px;
@@ -94,8 +38,7 @@ aside{
     color: #000;
     box-shadow: 0px 4px 10px rgba(255,123,0,0.5);
 }
-.left-side{
-  position: absolute;
+.left-side{ 
   left: 220px;
   justify-content: space-between;
   bottom: 15px;

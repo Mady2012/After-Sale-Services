@@ -1,92 +1,114 @@
 <?php
+include 'connection.php';
 session_start();
+
 if (!isset($_SESSION['username'])) {
     header("Location: login.php");
 }
+  $user['UserID'] = $_SESSION['user_id'];
+  $user['UserName']= $_SESSION['username'];
+
+$sql = "SELECT * FROM request";
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+
+$result = $stmt->fetchAll();
 ?>
 
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="../Icon/css/all.min.css">
     <link rel="stylesheet" href="../css/dash.css">
+    <link rel="stylesheet" href="../Icon/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <form action="" method="post">
-        <main>
-            <header class="top-bar">
-                   <img src="../logo_inov.png" alt="">
-                </div>
-                <nav class="top-nav">
-                    <i class="fa fa-dashboard"></i>Dashboard
-                </nav>
-                <div class="user">
-                    <?php
-                    echo "WELCOME ".$_SESSION['username'].' !!!'; 
-                    ?>
-                    <!-- <img src="../avatar.jpeg" alt=""> -->
-                </div>
-            </header>
-            <aside class="side-bar">
-                <div class="menu">
-                   <p class="board"><i class="fa fa-dashboard"></i><a href="dash.php">Dashboard</a></p>
-                    <p><i class="fa fa-first-aid"></i><a href="list.php">Support List</a></p>
-                    <p><i class="fa fa-ticket"></i><a href="request.php">Support Request</a></p>
-                    <p><i class="fa fa-diagram-project"></i><a href="project.php">Project</a></p>
-                    <p><i class="fa "></i><a href="task_list.php">Task_List</a></p>
-                    <p><i class="fa fa-bars-progress"></i><a href="#">Progress</a></p>
-                    <a href="disconnect.php" class="btn">Disconnect</a>
-                </div>
-                </aside>
-            <section class="left-side">
-                <div class="status">
-                    <div class="sup">
-                        <p>200</p>
-                         <h4>Support Request</h3>
-                    </div>
-                    <div class="done">
-                        <p>100</p>
-                         <h4>Project Done</h3>
-                    </div>
-                    <div class="review">
-                        <p>100</p>
-                           <h4>Project in review</h3>
-                    </div>
-                    <div class="prog">
-                        <p>200</p>
-                           <h4>Project in progress</h3>
-                    </div>
-                    <div class="new">
-                        <p>20</p>
-                         <h4>New project</h3>
-                    </div>
-                </div>
-            </section>
-            <div class="join">
-                <div class="list">
-                    <h3>Support List Summary</h3>
-                    <canvas id="myChart" width="200" height="200"></canvas>
-                </div>
-                <div class="table">
-                <table>
-                    <h3>Recent Support Request</h3>
-                    <thead>
-                        <tr>
-                            <th>Profile</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                        </tr>
-                    </thead>
-                </table>
+    <!-- side-bar -->
+    <?php
+    include '../include/sidebar.php'; 
+    ?> 
+
+    <section id="interface">
+
+    <!-- navbar -->
+
+    <?php
+     include '../include/nav.php';
+   ?>
+        <h3 class="i-name">
+            Dashboard
+        </h3>
+        <div class="values">
+            <div class="val-box">
+                <i class="fa fa-ticket"></i>
+                <div>
+                    <h3>200</h3>
+                    <span>Total Support</span>
                 </div>
             </div>
-            <div>
+            <div class="val-box">
+                <i class="fa fa-diagram-project"></i>
+                <div>
+                    <h3>200</h3>
+                    <span>New projects</span>
+                </div>
             </div>
-        </main>
-    </form>
-    <script src="../javascript/dash.js"></script>
+            <div class="val-box">
+                <i class="fa fa-critical-role"></i>
+                <div>
+                    <h3>200</h3>
+                    <span>Projects In review</span>
+                </div>
+            </div>
+            <div class="val-box">
+                <i class="fa fa-bars-progress"></i>
+                <div>
+                    <h3>200</h3>
+                    <span>Project In Progress</span>
+                </div>
+            </div>
+        </div>
+        <div class="board">
+            <table width="100%">
+                <thead>
+                    <tr>
+                    <td>Name</td>
+                    <td>Title</td>
+                    <td>Role</td>
+                    <td>Status</td>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($result as $result): ?>
+                    <tr>
+                        <td class="people">
+                            <img src="../avatar.jpeg" alt="">
+                            <div class="people-de">
+                                <h5><?= (($user['UserName'])) ?></h5>
+                                <p>wendymadissone@gmail.com</p>
+                            </div>
+                        </td>
+                        <td class="people-des">
+                            <h5><?= ($result['Request_Title']) ?></h5>
+                            <p>Web dev</p>
+                        </td>
+                        <td class="active"><p>Active</p></td>
+                        <td class="role">
+                            <p>owner</p>
+                        </td>
+                        <td class="edit"><a href="#">Edit</a></td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <script>
+        $('#menu-btn').click(function(){
+            $('#menu').toggleClass("active");
+        })
+    </script>
 </body>
 </html>

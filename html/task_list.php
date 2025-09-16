@@ -16,40 +16,38 @@ $stmt = $conn->prepare($sql);
 $stmt->bindParam(":projectid", $projectid);
 $stmt->execute();
 $tasks = $stmt->fetchAll();
-?>
 
 ?>
 
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="../css/task_list.css">
+  <link rel="stylesheet" href="../css/dash.css">
     <link rel="stylesheet" href="../Icon/css/all.min.css">
-    <link rel="stylesheet" href="../css/list.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <body>
-    <form action="" method="post">
-        <main>
-            <header class="top-bar">
-                <img src="../logo_inov.png" alt="">
-                <nav class="top-nav">
-                    <i class="fa fa-first-aid"></i>Task_List
-                </nav>
-            </header>
-            <aside class="side-bar">
-                <div class="menu">
-                   <p><i class="fa fa-dashboard"></i><a href="dash.php">Dashboard</a></p>
-                    <p ><i class="fa fa-first-aid"></i><a href="list.php">Support List</a></p>
-                    <p><i class="fa fa-ticket"></i><a href="request.php">Support Request</a></p>
-                    <p><i class="fa fa-diagram-project"></i><a href="project.php">Project</a></p>
-                    <p class="board"><i class="fa "></i><a href="task_list.php">Task_List</a></p>
-                    <p><i class="fa fa-bars-progress"></i><a href="#">Progress</a></p>
-                    <a href="disconnect.php" class="btn">Disconnect</a>
-                </div>
-                </aside>
+    
+    <!-- side-bar -->
+    <?php
+    include '../include/sidebar.php'; 
+    ?> 
 
-                <table>
+    <section id="interface">
+
+    <!-- navbar -->
+
+    <?php
+     include '../include/nav.php';
+   ?>
+        <h3 class="i-name">
+            Task List
+        </h3>
+        
+        <table>
                     <thead>
                         <tr>
                             <th>TaskID</th>
@@ -74,5 +72,16 @@ $tasks = $stmt->fetchAll();
 
                 </table>
                 </section>
+
+        <main>
+           
+        </main>
+    </section>
+    <script>
+        $('#menu-btn').click(function(){
+            $('#menu').toggleClass("active");
+        })
+    </script>
+</form>
 </body>
 </html>
