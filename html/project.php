@@ -38,8 +38,8 @@ $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
             Project
         </h3>
         
-        <section class="leftside">
-             <div class="container">
+        <section class="values">
+             <div class="val-box">
                 <!-- <div class="new">
                 <h3>New project</h3> -->
                 <?php foreach ($projects as $project): ?>
