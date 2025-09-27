@@ -5,14 +5,36 @@ session_start();
 if (!isset($_SESSION['username'])) {
     header("Location: login.php");
 }
-  $user['UserID'] = $_SESSION['user_id'];
-  $user['UserName']= $_SESSION['username'];
+$sqlsupport = "SELECT COUNT(*) AS total_support FROM request";
+$stmtsupport = $conn->prepare($sqlsupport);
+$stmtsupport->execute();
+
+$supportData = $stmtsupport->fetch();
+$supportcount = $supportData['total_support'];
+
+$sqlproject = "SELECT COUNT(*) AS total_project FROM project";
+$stmtproject = $conn->prepare($sqlproject);
+$stmtproject->execute();
+
+$projectData = $stmtproject->fetch();
+$projectcount = $projectData['total_project'];
 
 $sql = "SELECT * FROM request";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 
 $result = $stmt->fetchAll();
+
+// $sql1 = "SELECT Status FROM project";
+// $stmt1 = $conn->prepare($sql);
+// $stmt1->execute();
+
+// $status = $stmt1->fetch();
+
+function truncate($text,$max = 50){
+    return strlen($text) > $max ? substr($text, 0, $max) . "..." : $text;
+}
+
 ?>
 
 <html lang="en">
@@ -44,14 +66,14 @@ $result = $stmt->fetchAll();
             <div class="val-box">
                 <i class="fa fa-ticket"></i>
                 <div>
-                    <h3>200</h3>
+                    <h3><?= ($supportcount) ?></h3>
                     <span>Total Support</span>
                 </div>
             </div>
             <div class="val-box">
                 <i class="fa fa-diagram-project"></i>
                 <div>
-                    <h3>200</h3>
+                    <h3><?= ($projectcount) ?></h3>
                     <span>New projects</span>
                 </div>
             </div>
@@ -76,29 +98,42 @@ $result = $stmt->fetchAll();
                     <tr>
                     <td>Name</td>
                     <td>Title</td>
-                    <td>Role</td>
+                    <td>Description</td>
                     <td>Status</td>
+                    <td>Actions</td>
                     </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($result as $result): ?>
+                <?php foreach ($result as $req): ?>
+                    <?php
+                    $sqlUser = "SELECT UserName, Email FROM user WHERE UserID = :id";
+                    $stmtUser = $conn->prepare($sqlUser);
+                    $stmtUser->execute([':id' => $req['UserID']]);
+                    $user = $stmtUser->fetch();
+
+                    if (!$user) {
+                        $user = ['UserName' => 'Unknown user', 'Email' => 'Not defined'];
+                    }
+
+                    ?>
                     <tr>
                         <td class="people">
                             <img src="../avatar.jpeg" alt="">
                             <div class="people-de">
                                 <h5><?= (($user['UserName'])) ?></h5>
-                                <p>wendymadissone@gmail.com</p>
+                                <p><?= (($user['Email'])) ?></p>
                             </div>
                         </td>
                         <td class="people-des">
-                            <h5><?= ($result['Request_Title']) ?></h5>
-                            <p>Web dev</p>
+                            <h5><?= ($req['Request_Title']) ?></h5>
                         </td>
-                        <td class="active"><p>Active</p></td>
+                        <td><p><?= (truncate($req['Description'], 40)) ?></p></td>
                         <td class="role">
-                            <p>owner</p>
+                             <p></p>
                         </td>
-                        <td class="edit"><a href="#">Edit</a></td>
+                        <td class="edit"><a href="modify.php?action=modify&id=<?php echo $req['RequestID']; ?>">Edit</a></td>
+                        <td class="edit"><a href="delete.php?action=delete&id=<?php echo $req['RequestID']; ?>" onclick="return confirm('Do you really want to delete this request ?')">Delete</a></td>
+                        <td class="edit"><a href="view.php">View</a></td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>

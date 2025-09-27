@@ -226,13 +226,12 @@ thead td{
 tbody tr td{
     padding: 10px 15px;
 }
-.active p{
-    background-color: #6dfa6d97;
+/* .active p{
     padding: 2px 10px;
     display: inline-block;
     border-radius: 40px;
     color: #000000cc;
-}
+} */
 
 .edit{
     text-decoration: none;

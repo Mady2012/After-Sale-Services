@@ -33,30 +33,28 @@ $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <?php
      include '../include/nav.php';
    ?>
-   <form action="" method="post">
+   <!-- <form action="" method="post"> -->
         <h3 class="i-name">
             Project
         </h3>
         
         <section class="values">
-             <div class="val-box">
-                <!-- <div class="new">
-                <h3>New project</h3> -->
                 <?php foreach ($projects as $project): ?>
+                    <!-- <div class="val-box"> -->
                     <div class="card" onclick="window.location.href='task_list.php?projectid=<?php echo $project['ProjectID']; ?>'">
-                    <?php if (strtolower($project['Status']) === 'new'): ?>
-                        <h3><?= ($project['ProjectName']) ?></h4>
+                       <?php if (strtolower($project['Status']) === 'new'): ?>
+                        <h3><?= ($project['ProjectName']) ?></h"    >
                         <p><?= ($project['RequestID']) ?></p>
                         <p><?= ($project['Description']) ?></p>
                         <p>Status : <?= ($project['Status']) ?></p>
-                        <a href="task_list.php?projectid=<?php echo $project['ProjectID']; ?>" class="view-btn">View Task</a>
-              <?php endif; ?>
-              <?php endforeach; ?>
+                        <a href="task.php" class="view-btn">Add task</a>
+                     
+                    </div>
+                     <?php endif; ?>
+                <?php endforeach; ?>
 
-                </div>
+            </div>
 
-          
-        </div> 
         </section>
 
     <script>

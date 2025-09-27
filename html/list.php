@@ -55,7 +55,7 @@ $result = $stmt->fetchAll();
                 <?php foreach ($result as $result): ?>
                     <tr>
                         <td class="people">
-                            <img src="../   avatar.jpeg" alt="">
+                            <img src="../avatar.jpeg" alt="">
                             <div class="people-de">
                                 <h5><?= (($user['UserName'])) ?></h5>
                                 <p>wendymadissone@gmail.com</p>

@@ -2,6 +2,8 @@
 session_start();
 include 'connection.php';
 
+$action = $_GET['action'] ?? '';
+$id = $_GET['id'] ?? '';
 
 if (isset($_POST['submit'])){
 $request_title = $_POST['request_title'];
@@ -39,7 +41,7 @@ try{
 catch(PDO_Exception $e){
   echo "Erreur" .$sql . "<br>" . $e->getMessage();
 }
-  
+ 
 
 $requestid = $conn->LastInsertId();
 
