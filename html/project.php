@@ -11,8 +11,9 @@ $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="../css/project.css">
-  <link rel="stylesheet" href="../css/dash.css">
+
+    <link rel="stylesheet" href="../css/project1.css">
+    <link rel="stylesheet" href="../css/dash.css">
     <link rel="stylesheet" href="../Icon/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <meta charset="UTF-8">
@@ -40,13 +41,12 @@ $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
         <section class="values">
                 <?php foreach ($projects as $project): ?>
-                    <!-- <div class="val-box"> -->
                     <div class="card" onclick="window.location.href='task_list.php?projectid=<?php echo $project['ProjectID']; ?>'">
                        <?php if (strtolower($project['Status']) === 'new'): ?>
                         <h3><?= ($project['ProjectName']) ?></h"    >
-                        <p><?= ($project['RequestID']) ?></p>
+                        <!-- <p><?= ($project['RequestID']) ?></p>
                         <p><?= ($project['Description']) ?></p>
-                        <p>Status : <?= ($project['Status']) ?></p>
+                        <p>Status : <?= ($project['Status']) ?></p> -->
                         <a href="task.php" class="view-btn">Add task</a>
                      
                     </div>

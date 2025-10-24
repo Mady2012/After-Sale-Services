@@ -2,7 +2,7 @@
 session_start();
 include 'connection.php';
 
-$projectid = $_GET['projectid'];
+$projectid = $_POST['projectid'];
 
 $sql = "SELECT ProjectName FROM project WHERE ProjectID = :projectid";
 $stmt = $conn->prepare($sql);
@@ -21,7 +21,7 @@ $tasks = $stmt->fetchAll();
 
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="../css/task_list.css">
+  <link rel="stylesheet" href="../css/task_list1.css">
   <link rel="stylesheet" href="../css/dash.css">
     <link rel="stylesheet" href="../Icon/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>

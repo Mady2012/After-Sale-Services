@@ -58,6 +58,7 @@ body{
     font-size: 14px;
     margin: 0 10px 0 25px ;
 }
+
 #menu .items li:hover i,
 #menu .items li a{
      color: #fff;
@@ -68,6 +69,11 @@ body{
     font-weight: 300px;
     transition: 0.3s ease ;
 }
+.dd{
+    border: solid  2px  #f28d08;
+    padding: 5px;
+}
+
 #interface{
     width: calc(100% - 300px );
     /* margin-left: 300px; */

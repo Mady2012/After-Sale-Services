@@ -50,7 +50,7 @@ $description = 'description';
 
 
 
-$sql = "INSERT INTO project(RequestID, ProjectName, Description) VALUES(:requestid, :projectname, :description)";
+$sql = "INSERT INTO project(RequestID, ProjectName, Description) VALUES(:requestid, :request_title, :description)";
 $stmt = $conn->prepare($sql);
 $stmt->bindParam(":requestid", $requestid);
 $stmt->bindParam(":projectname", $projectname);
@@ -69,7 +69,7 @@ try{
 
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="../css/request.css">
+  <link rel="stylesheet" href="../css/request1.css">
   <link rel="stylesheet" href="../css/dash.css">
     <link rel="stylesheet" href="../Icon/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>

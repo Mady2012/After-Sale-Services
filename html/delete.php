@@ -9,5 +9,5 @@ if ($action == 'delete' && $id) {
     $stmt = $conn->prepare("DELETE FROM request WHERE RequestID = :id");
     $stmt->execute(['id' => $id]);
 
-    header("location: request.php" );
+    header("location: list.php" );
 }

@@ -10,6 +10,6 @@ if ($action == 'view' && $id) {
     $stmt->execute(['id' => $id]);
     $request = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    header("Location: request.php");
+    // header("Location: request.php");
 }
 ?>

@@ -70,7 +70,7 @@ catch(PDO_Exception $e){
           </select>
         <P><label for="text" class="log">UserName</label></P>
         <P><input type="text" name="username" class="int" required ></P>
-       <P> <label for="text" class="log">Email</label></P>
+        <P> <label for="text" class="log">Email</label></P>
         <P><input type="text" name="email" class="int" required></P>
         <p><label for="text" class="log">Phone Number</label></p>
     <input type="number" name="number" class="int" required>
@@ -83,7 +83,7 @@ catch(PDO_Exception $e){
     <option value="technician">Technician</option>
     <option value="admin">Administrator</option>
     </select>
-       <P> <input type="submit" name="submit" class="btn-login" value="SIGN IN"></P>
+       <p> <input type="submit" name="submit" class="btn-login" value="SIGN IN"></p>
        </div>
         
      </main>
