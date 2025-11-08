@@ -2,7 +2,12 @@
 session_start();
 include 'connection.php';
 
-$projectid = $_POST['projectid'];
+$projectid = $_POST['projectid'] ?? $_GET['projectid'] ?? null;
+
+// if (!$projectid) {
+//     die("Missing ID!");
+// }
+
 
 $sql = "SELECT ProjectName FROM project WHERE ProjectID = :projectid";
 $stmt = $conn->prepare($sql);
@@ -21,6 +26,14 @@ $tasks = $stmt->fetchAll();
 
 <html lang="en">
 <head>
+    <script type="text/javascript" src='DataTables/media/js/jquery.js'></script>
+
+    <script type="text/javascript" src="DataTables/media/js/jquery.dataTables.min.js"></script>
+
+    <script type="text/javascript" src="tableau.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="DataTables/media/css/jquery.dataTables.min.css">
+
   <link rel="stylesheet" href="../css/task_list1.css">
   <link rel="stylesheet" href="../css/dash.css">
     <link rel="stylesheet" href="../Icon/css/all.min.css">
@@ -70,7 +83,7 @@ $tasks = $stmt->fetchAll();
         </tr>
             <?php endforeach; ?>
 
-                </table>
+                    </table>
                 </section>
 
         <main>

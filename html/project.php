@@ -6,6 +6,12 @@ $sql = "SELECT * FROM project";
 $stmt = $conn->query($sql);
 $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+$sqltask = "SELECT COUNT(*) AS total_task FROM task";
+$stmttask = $conn->prepare($sqltask);
+$stmttask->execute();
+
+$supportData = $stmttask->fetch();
+$taskcount = $supportData['total_task'];
 
 ?>
 
@@ -43,10 +49,13 @@ $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php foreach ($projects as $project): ?>
                     <div class="card" onclick="window.location.href='task_list.php?projectid=<?php echo $project['ProjectID']; ?>'">
                        <?php if (strtolower($project['Status']) === 'new'): ?>
-                        <h3><?= ($project['ProjectName']) ?></h"    >
-                        <!-- <p><?= ($project['RequestID']) ?></p>
-                        <p><?= ($project['Description']) ?></p>
-                        <p>Status : <?= ($project['Status']) ?></p> -->
+                        <h3> 
+                            <?= ($taskcount) ?> <br>
+                            <?= ($project['ProjectName']) ?> </i>
+                        </h3> 
+                        <!-- <?= ($project['RequestID']) ?></p>
+                        <?= ($project['Description']) ?></p>
+                        <?= ($project['Status']) ?></p>  -->
                         <a href="task.php" class="view-btn">Add task</a>
                      
                     </div>

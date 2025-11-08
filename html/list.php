@@ -37,7 +37,7 @@ function truncate($text,$max = 50){
 
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="../css/list1.css">
+    <link rel="stylesheet" href="../css/list.css">
     <link rel="stylesheet" href="../css/dash.css">
     <link rel="stylesheet" href="../Icon/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -102,8 +102,8 @@ function truncate($text,$max = 50){
                              <p></p>
                         </td>
                         <td class="edit"><a href="modify.php?action=modify&id=<?php echo $req['RequestID']; ?>"><i class="fa fa-pencil"></a></td>
-                        <td class="edit"><a href="delete.php?action=delete&id=<?php echo $req['RequestID']; ?>" onclick="return confirm('Do you really want to delete this request ?')"><i class="fa fa-trash"></i></a></td>
-                        <td class="edit"><a href="view.php"> <i class="fa fa-eye"></i></a></td>
+                        <td class="edit"><a href="delete.php?action=delete&id=<?php echo $req['RequestID']; ?>" onclick="return confirm('Do you really want to delete this request ?')"><i class="fa fa-trash trash"></i></a></td>
+                        <td class="edit"><a href="view.php"> <i class="fa fa-eye eyes"></i></a></td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>

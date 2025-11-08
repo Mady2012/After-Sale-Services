@@ -74,6 +74,17 @@ body{
     padding: 5px;
 }
 
+.trash{
+    color: #dc3545;
+}
+
+.pencil{
+    color: green;
+}
+
+.eye{
+    color: blue;
+}
 #interface{
     width: calc(100% - 300px );
     /* margin-left: 300px; */

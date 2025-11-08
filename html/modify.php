@@ -63,23 +63,20 @@ try{
    ?>
         <h3 class="i-name">
         </h3>
-        
+             <form action="" method="post"  enctype="multipart/form-data"> 
         <div class="board">
              <section class="left-side">
                 <div class="container">
-                <form action="" method="post"  enctype="multipart/form-data">
+          
                 <h1>REQUEST FORM</h1>
                 <div class="image-container">
-                  <div class="image">
-                  <img src="../avatar.jpeg" alt="">
-                  <div class="icon"><i class="fa fa-camera"></i></div>
-                </div>
+                  <div class="image"></div>
                 </div>
 
     <div class="image-container">
         <div class="image">
             <img src="<?php echo !empty($request['Image']) ? $request['Image'] : '../avatar.jpeg'; ?>" alt="">
-            <div class="icon"><i class="fa fa-camera"></i></div>
+            <!-- <div class="icon"><i class="fa fa-camera"></i></div> -->
         </div>
     </div>
 

@@ -69,7 +69,7 @@ try{
 
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="../css/request1.css">
+  <link rel="stylesheet" href="../css/request.css">
   <link rel="stylesheet" href="../css/dash.css">
     <link rel="stylesheet" href="../Icon/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -93,21 +93,15 @@ try{
    ?>
         <h3 class="i-name">
         </h3>
-        
-        <div class="board">
-             <section class="left-side">
-                <div class="container">
-                <form action="" method="post"  enctype="multipart/form-data">
-                <h1>REQUEST FORM</h1>
-                <div class="image-container">
-                  <div class="image">
-                  <img src="../avatar.jpeg" alt="">
-                  <div class="icon"><i class="fa fa-camera"></i></div>
-                </div>
-                </div>
+        <form action="" method="post"  enctype="multipart/form-data">
+            <div class="container">
+              <div class="board">
                 <div class="content">
-                <div class="name">
-                    <label for="text">Request_Title</label>
+                  <div class="name">
+
+                    <h1>REQUEST FORM</h1>
+
+                    <label for="text">Request Title</label>
                     <input type="text" name="request_title" class="int" required>
 
 
@@ -116,14 +110,11 @@ try{
                     
                     <label for="text">Image</label>
                     <input type="file" name="image" class="int" required><br>
-                </div> 
+                  </div> 
                 </div>
                 <div><input type="submit" name="submit" class="btn-sub" value="SUBMIT"></div>
-            </section>
-        </div>
-        <main>
-           
-        </main>
+              </div>
+            </div>
     </section>
     <script>
         $('#menu-btn').click(function(){
