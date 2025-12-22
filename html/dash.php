@@ -42,6 +42,11 @@ function truncate($text,$max = 50){
     <link rel="stylesheet" href="../css/dash.css">
     <link rel="stylesheet" href="../Icon/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -93,14 +98,14 @@ function truncate($text,$max = 50){
             </div>
         </div>
         <div class="board">
-            <table width="100%">
+            <table id="tab" width="100%">
                 <thead>
                     <tr>
-                    <td>Name</td>
-                    <td>Title</td>
-                    <td>Description</td>
-                    <td>Status</td>
-                    <td>Actions</td>
+                    <th>Name</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -129,24 +134,47 @@ function truncate($text,$max = 50){
                         </td>
                         <td><p><?= (truncate($req['Description'], 40)) ?></p></td>
                         <td class="role">
-                             <p></p>
                         </td>
 
-                      <div class="icon">
-                        <td class="edit"><a href="modify.php?action=modify&id=<?php echo $req['RequestID']; ?>"> <i class="fa fa-pencil pencil" ></i></a></td>
-                        <td class="edit"><a href="delete.php?action=delete&id=<?php echo $req['RequestID']; ?>" onclick="return confirm('Do you really want to delete this request ?')"> <i class="fa fa-trash trash"></i></a></td>
-                        <td class="edit"><a href="view.php?action=view&id=<?php echo $req['RequestID']; ?>"><i class="fa fa-eye eye"></i></a></td>
-                      </div> 
+                       <td class="edit">
+                        <a href="modify.php?action=modify&id=<?php echo $req['RequestID']; ?>"> <i class="fa fa-pencil pencil" ></i></a>
+                        <a href="delete.php?action=delete&id=<?php echo $req['RequestID']; ?>" onclick="return confirm('Do you really want to delete this request ?')"> <i class="fa fa-trash trash"></i></a>
+                        <a href="view.php?action=view&id=<?php echo $req['RequestID']; ?>"><i class="fa fa-eye eye"></i></a>
+                      </td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
     </section>
+
+
+    <!-- <style>
+        
+table#tab.dataTable tbody td,
+table#tab.dataTable thead th {
+    padding: 15px !important;
+}
+
+    </style> -->
     <script>
         $('#menu-btn').click(function(){
             $('#menu').toggleClass("active");
         })
     </script>
+
+
+    <script>
+$(document).ready(function () {
+    $('#tab').DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/fr-FR.json"
+        }
+    });
+});
+</script>
+
+
+
 </body>
 </html>

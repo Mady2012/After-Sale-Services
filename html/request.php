@@ -27,16 +27,16 @@ $uploadDir = "../image/";
 
 
 
-$sql = "INSERT INTO request (UserID, Request_Title, Description, Image) VALUES (:user_id, :request_title, :description, :image)";
-$stmt = $conn->prepare($sql);
-$stmt->bindParam(":user_id", $userid);
-$stmt->bindParam(':request_title', $request_title);
-$stmt->bindParam(':description', $description);
-$stmt->bindParam(':image', $image);
+$sql1 = "INSERT INTO request (UserID, Request_Title, Description, Image) VALUES (:user_id, :request_title, :description, :image)";
+$stmt1 = $conn->prepare($sql1);
+$stmt1->bindParam(":user_id", $userid);
+$stmt1->bindParam(':request_title', $request_title);
+$stmt1->bindParam(':description', $description);
+$stmt1->bindParam(':image', $image);
 
 
 try{
-  $stmt->execute();
+  $stmt1->execute();
 }
 catch(PDO_Exception $e){
   echo "Erreur" .$sql . "<br>" . $e->getMessage();
@@ -45,20 +45,20 @@ catch(PDO_Exception $e){
 
 $requestid = $conn->LastInsertId();
 
-$projectname = 'projectname';
-$description = 'description';
+$projectname = $request_title;
+$description = $description;
 
 
 
-$sql = "INSERT INTO project(RequestID, ProjectName, Description) VALUES(:requestid, :request_title, :description)";
-$stmt = $conn->prepare($sql);
-$stmt->bindParam(":requestid", $requestid);
-$stmt->bindParam(":projectname", $projectname);
-$stmt->bindParam(":description", $description);
+$sql2 = "INSERT INTO project(RequestID, ProjectName, Description) VALUES(:requestid, :request_title, :description)";
+$stmt2 = $conn->prepare($sql2);
+$stmt2->bindParam(":requestid", $requestid);
+$stmt2->bindParam(":request_title", $projectname);
+$stmt2->bindParam(":description", $description);
 
 
 try{
-    $stmt->execute();
+    $stmt2->execute();
   }
   catch(PDO_Exception $e){
     echo "Erreur" .$sql . "<br>" . $e->getMessage();

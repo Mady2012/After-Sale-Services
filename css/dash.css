@@ -69,10 +69,10 @@ body{
     font-weight: 300px;
     transition: 0.3s ease ;
 }
-.dd{
+/* .dd{
     border: solid  2px  #f28d08;
     padding: 5px;
-}
+} */
 
 .trash{
     color: #dc3545;
@@ -85,6 +85,10 @@ body{
 .eye{
     color: blue;
 }
+/* td .trash, td .pencil, td .eye {
+    margin: 0 5px;
+    font-size: 16px;
+} */
 #interface{
     width: calc(100% - 300px );
     /* margin-left: 300px; */
@@ -228,6 +232,7 @@ body{
 table{
     border-collapse: collapse;
 }
+
 tr{
     border-bottom: 1px solid #f28d087f;
 }
@@ -237,11 +242,11 @@ thead td{
     font-weight: 400;
     background-color: #fff;
     text-align: start;
-    padding: 15px;
+    padding:  8px 10px;
 }
 
 tbody tr td{
-    padding: 10px 15px;
+    padding: 6px 10px;
 }
 /* .active p{
     padding: 2px 10px;

@@ -18,7 +18,7 @@ $taskcount = $supportData['total_task'];
 <html lang="en">
 <head>
 
-    <link rel="stylesheet" href="../css/project1.css">
+    <link rel="stylesheet" href="../css/project.css">
     <link rel="stylesheet" href="../css/dash.css">
     <link rel="stylesheet" href="../Icon/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -50,6 +50,8 @@ $taskcount = $supportData['total_task'];
                     <div class="card" onclick="window.location.href='task_list.php?projectid=<?php echo $project['ProjectID']; ?>'">
                        <?php if (strtolower($project['Status']) === 'new'): ?>
                         <h3> 
+                            <div class="val-box">
+                         <i class="fa fa-diagram-project"></i>
                             <?= ($taskcount) ?> <br>
                             <?= ($project['ProjectName']) ?> </i>
                         </h3> 

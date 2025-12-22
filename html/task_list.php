@@ -37,7 +37,12 @@ $tasks = $stmt->fetchAll();
   <link rel="stylesheet" href="../css/task_list1.css">
   <link rel="stylesheet" href="../css/dash.css">
     <link rel="stylesheet" href="../Icon/css/all.min.css">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -60,7 +65,8 @@ $tasks = $stmt->fetchAll();
             Task List
         </h3>
         
-        <table>
+        <table id="tab" class="display" style="width:100%">
+
                     <thead>
                         <tr>
                             <th>TaskID</th>
@@ -71,30 +77,35 @@ $tasks = $stmt->fetchAll();
                         </tr>
                     </thead>
                     <?php foreach ($tasks as $task): ?>
-            <tr>
+                <tr>
 
-                <td><?= ($task['TaskID']) ?></td>
-                <td><?= ($task['ProjectID']) ?></td>
-                <td><?= (($task['TaskName'])) ?></td>
-                <td><?= ($task['TechnicianID']) ?></td>
-                <td><?= ($task['Status']) ?></td>
-                
-  </td>
-        </tr>
+                    <td><?= ($task['TaskID']) ?></td>
+                    <td><?= ($task['ProjectID']) ?></td>
+                    <td><?= (($task['TaskName'])) ?></td>
+                    <td><?= ($task['TechnicianID']) ?></td>
+                    <td><?= ($task['Status']) ?></td>
+                </tr>
             <?php endforeach; ?>
 
-                    </table>
-                </section>
-
-        <main>
-           
-        </main>
+        </table>
+                
     </section>
     <script>
         $('#menu-btn').click(function(){
             $('#menu').toggleClass("active");
         })
     </script>
+
+       <script>
+$(document).ready(function () {
+    $('#tab').DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/fr-FR.json"
+        }
+    });
+});
+</script>
+
 </form>
 </body>
 </html>
