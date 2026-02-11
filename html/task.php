@@ -2,7 +2,9 @@
 session_start();
 include 'connection.php';
 
-$sql1 = "SELECT ProjectID, ProjectName FROM project";
+$projectid = $_GET['projectid'] ?? '';
+
+$sql1 = "SELECT ProjectID FROM project";
 $stmt1 = $conn->prepare($sql1);
 $stmt1->execute();
 $projects = $stmt1->fetchAll(PDO::FETCH_ASSOC);
@@ -24,7 +26,7 @@ if (isset($_POST['submit'])) {
 
     $sql2 = "INSERT INTO task (ProjectID, TaskName, TechnicianID, Status) VALUES (:projectid, :taskname, :technician_id, :status)";
     $stmt2 = $conn->prepare($sql2);
-    $stmt2->bindParam(':projectid', $projects);
+    $stmt2->bindParam(':projectid', $projectid);
     $stmt2->bindParam(':taskname', $taskname);
     $stmt2->bindParam(':technician_id', $userid);
     $stmt2->bindParam(':status', $status);
@@ -80,13 +82,16 @@ if (isset($_POST['submit'])) {
         <main>
            <div class="infos">
            <P><label for="projectid" class="log">ProjectID</label></P>
-          <select name="projectid" id="projectid" class="int" required>
-            <option value="">Choose a project</option>
-            <?php foreach ($projects as $project): ?>
-                <option value="<?php echo $project['ProjectID']; ?>"><?php echo $project['ProjectName']; ?>
-            </option>
-        <?php endforeach; ?>
-          </select>
+         <input 
+    type="number" 
+    name="projectid" 
+    id="projectid" 
+    class="int" 
+    value="<?= ($projectid); ?>" 
+    readonly
+    required
+>
+      
 
           <P><label for="projectid" class="log">TechnicianID</label></P>
           <select name="userid" id="userid" class="int" required>
@@ -94,7 +99,7 @@ if (isset($_POST['submit'])) {
             <?php foreach ($roles as $role): ?>
                 <option value="<?php echo $role['UserID']; ?>"><?php echo $role['UserName']; ?>
             </option>
-        <?php endforeach; ?>
+        <?php endforeach; ?> 
           </select>
 
            <P><label for="text" class="log">TaskName</label></P>

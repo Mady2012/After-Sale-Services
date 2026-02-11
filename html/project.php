@@ -53,12 +53,11 @@ $taskcount = $supportData['total_task'];
                             <div class="val-box">
                          <i class="fa fa-diagram-project"></i>
                             <?= ($taskcount) ?> <br>
-                            <?= ($project['ProjectName']) ?> </i>
+                            <?= ($project['ProjectName']) ?> </i><a href="task.php?projectid=<?= $project['ProjectID']; ?>" class="view-btn">Add task</a>
                         </h3> 
                         <!-- <?= ($project['RequestID']) ?></p>
                         <?= ($project['Description']) ?></p>
                         <?= ($project['Status']) ?></p>  -->
-                        <a href="task.php" class="view-btn">Add task</a>
                      
                     </div>
                      <?php endif; ?>

@@ -110,7 +110,7 @@ function truncate($text,$max = 50){
                         <td class="edit">
                          <a href="modify.php?action=modify&id=<?php echo $req['RequestID']; ?>"><i class="fa fa-pencil"></i></a>
                          <a href="delete.php?action=delete&id=<?php echo $req['RequestID']; ?>" onclick="return confirm('Do you really want to delete this request ?')"><i class="fa fa-trash trash"></i></a>
-                         <a href="view.php"> <i class="fa fa-eye eyes"></i></a>
+                         <a href="view.php?id=<?= $req['RequestID'] ?>"> <i class="fa fa-eye eyes"></i></a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
