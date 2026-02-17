@@ -2,6 +2,10 @@
 session_start();
 include 'connection.php';
 
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+}
+
 $action = $_GET['action'] ?? '';
 $id = $_GET['id'] ?? '';
 

@@ -45,7 +45,7 @@ catch(PDO_Exception $e){
 
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="../css/sign in.css">
+    <link rel="stylesheet" href="../css/sign-in.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -60,30 +60,41 @@ catch(PDO_Exception $e){
         </header>
         <div class="infos">
 
-        <P><label for="text" class="log">GoupID</label></P>
-        <select name="groupid" id="groupid" class="int" required>
+        <div class="left">
+           <P><label for="text" class="log">GoupID</label></P>
+          <select name="groupid" id="groupid" class="int" required>
             <option value="">Choose a group</option>
             <?php foreach ($groups as $group): ?>
                 <option value="<?php echo $group['GroupID']; ?>"><?php echo $group['GroupName']; ?>
             </option>
-        <?php endforeach; ?>
+           <?php endforeach; ?>
           </select>
-        <P><label for="text" class="log">UserName</label></P>
-        <P><input type="text" name="username" class="int" required ></P>
-        <P> <label for="text" class="log">Email</label></P>
-        <P><input type="text" name="email" class="int" required></P>
-        <p><label for="text" class="log">Phone Number</label></p>
-    <input type="number" name="number" class="int" required>
-    <p><label for="text" class="log">Password</label></p>
-    <input type="password" name="password" class="int" required>
-    <p><label for="text" class="log">Role</label></p>
-    <select name="role" id="role" class="int">
-    <option value=""></option>
-    <option value="user">User</option>
-    <option value="technician">Technician</option>
-    <option value="admin">Administrator</option>
-    </select>
+        </div>
+        <div class="right">
+          <P><label for="text" class="log">UserName</label></P>
+          <P><input type="text" name="username" class="int" required ></P>
+        </div>
+        <div class="left">
+          <P> <label for="text" class="log">Email</label></P>
+          <P><input type="text" name="email" class="int" required></P>
+        </div>
+        <div class="right">
+          <p><label for="text" class="log">Phone Number</label></p>
+          <p><input type="number" name="number" class="int" required></p>
+        </div>
+        <div class="left">
+         <p><label for="text" class="log">Password</label></p>
+         <input type="password" name="password" class="int" required>
+         <p><label for="text" class="log">Role</label></p>
+         <select name="role" id="role" class="int">
+         <option value=""></option>
+         <option value="user">User</option>
+         <option value="technician">Technician</option>
+         <option value="admin">Administrator</option>
+         </select>
+        </div>
        <p> <input type="submit" name="submit" class="btn-login" value="SIGN IN"></p>
+       <h5>Do you have an account? <a href="login.php">LOGIN</a></h5>
        </div>
         
      </main>

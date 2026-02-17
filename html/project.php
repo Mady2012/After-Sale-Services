@@ -2,16 +2,19 @@
 session_start();
 include 'connection.php';
 
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+}
+
+if ($_SESSION['role'] === 'User') {
+    header("Location: list.php");
+    exit;
+}
+
 $sql = "SELECT * FROM project";
 $stmt = $conn->query($sql);
 $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$sqltask = "SELECT COUNT(*) AS total_task FROM task";
-$stmttask = $conn->prepare($sqltask);
-$stmttask->execute();
-
-$supportData = $stmttask->fetch();
-$taskcount = $supportData['total_task'];
 
 ?>
 
@@ -47,6 +50,16 @@ $taskcount = $supportData['total_task'];
         
         <section class="values">
                 <?php foreach ($projects as $project): ?>
+                    <?php
+                      $sqltask = "SELECT COUNT(*) AS total_task FROM task WHERE ProjectID = :projectid";
+
+                      $stmttask = $conn->prepare($sqltask);
+                      $stmttask->execute(['projectid' => $project['ProjectID']]);
+
+                      $supportData = $stmttask->fetch(PDO::FETCH_ASSOC);
+                      $taskcount = $supportData['total_task'];
+
+                    ?>
                     <div class="card" onclick="window.location.href='task_list.php?projectid=<?php echo $project['ProjectID']; ?>'">
                        <?php if (strtolower($project['Status']) === 'new'): ?>
                         <h3> 

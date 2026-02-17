@@ -1,3 +1,10 @@
+<?php
+
+// if (!isset($_SESSION['username'])) {
+//     header("Location: login.php");
+// }
+?>
+
 <html lang="en">
 <head>
      <link rel="stylesheet" href="../css/style1.css">
@@ -15,9 +22,9 @@
               <img src="../logo_inov.png" class="image" alt="">
 
              <div class="ref">
-              <a href="login.php">Login</a>
-              <a href="project.php">Project</a>
               <a href="request.php">Support</a>
+              <a href="list.php">Consult my Supports</a>
+              <a href="sign in.php">Sign In</a>
              </div>
             
 

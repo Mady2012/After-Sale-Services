@@ -2,35 +2,29 @@
 include 'connection.php';
 session_start();
 
-if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
+ 
     exit;
 }
 
-if ($_SESSION['role'] === 'User') {
-    header("Location: list.php");
-    exit;
-}
+// $user_id = $_SESSION['user_id'];
 
-$sqlsupport = "SELECT COUNT(*) AS total_support FROM request";
-$stmtsupport = $conn->prepare($sqlsupport);
-$stmtsupport->execute();
+// $sqlsupport = "SELECT COUNT(*) AS total_support FROM request WHERE UserID = :userid";
+// $stmt = $conn->prepare($sqlsupport);
+// $stmt->execute(['userid' => $user_id]);
+// $supportcount = $stmt->fetch()['total_support'];
 
-$supportData = $stmtsupport->fetch();
-$supportcount = $supportData['total_support'];
+// $sqlproject = "SELECT COUNT(*) AS total_project FROM project WHERE UserID = :userid";
+// $stmt = $conn->prepare($sqlproject);
+// $stmt->execute(['userid' => $user_id]);
+// $projectcount = $stmt->fetch()['total_project'];
 
-$sqlproject = "SELECT COUNT(*) AS total_project FROM project";
-$stmtproject = $conn->prepare($sqlproject);
-$stmtproject->execute();
 
-$projectData = $stmtproject->fetch();
-$projectcount = $projectData['total_project'];
-
-$sql = "SELECT * FROM request";
-$stmt = $conn->prepare($sql);
-$stmt->execute();
-
-$result = $stmt->fetchAll();
+// $sql = "SELECT * FROM request WHERE UserID = :userid ORDER BY RequestID DESC";
+// $stmt = $conn->prepare($sql);
+// $stmt->execute(['userid' => $user_id]);
+// $requests = $stmt->fetchAll();
 
 // $sql1 = "SELECT Status FROM project";
 // $stmt1 = $conn->prepare($sql);
@@ -45,7 +39,7 @@ function truncate($text,$max = 50){
 ?>
 
 <html lang="en">
-<head>
+<!-- <head> -->
     <link rel="stylesheet" href="../css/dash.css">
     <link rel="stylesheet" href="../Icon/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -58,10 +52,10 @@ function truncate($text,$max = 50){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
+<!-- <body> -->
     <!-- side-bar -->
     <?php
-    include '../include/sidebar.php'; 
+    include '../include/sidebar1.php'; 
     ?> 
 
     <section id="interface">
@@ -69,10 +63,10 @@ function truncate($text,$max = 50){
     <!-- navbar -->
 
     <?php
-     include '../include/nav.php';
+     include '../include/nav1.php';
    ?>
         <h3 class="i-name">
-            Dashboard
+            User_Dashboard
         </h3>
         <div class="values">
             <div class="val-box">
@@ -116,7 +110,7 @@ function truncate($text,$max = 50){
                     </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($result as $req): ?>
+                <?php foreach ($requests as $req): ?>
                     <?php
                     $sqlUser = "SELECT UserName, Email FROM user WHERE UserID = :id";
                     $stmtUser = $conn->prepare($sqlUser);

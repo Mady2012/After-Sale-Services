@@ -5,9 +5,21 @@ session_start();
 if (!isset($_SESSION['username'])) {
     header("Location: login.php");
 }
-  $user['UserID'] = $_SESSION['user_id'];
-  $user['UserName']= $_SESSION['username'];
+  $user_id = $_SESSION['user_id'];
+  $username = $_SESSION['username'];
+  $role = $_SESSION['role'] ?? 'User';
 
+if ($role === 'Admin' || $role === 'Technicien') {
+    $sql = "SELECT * FROM request ORDER BY RequestID DESC";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+} else {
+    $sql = "SELECT * FROM request WHERE UserID = :userid ORDER BY RequestID DESC";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute(['userid' => $user_id]);
+}
+
+$result = $stmt->fetchAll();
 
 $sqlsupport = "SELECT COUNT(*) AS total_support FROM request";
 $stmtsupport = $conn->prepare($sqlsupport);
@@ -23,11 +35,7 @@ $stmtproject->execute();
 $projectData = $stmtproject->fetch();
 $projectcount = $projectData['total_project'];
 
-$sql = "SELECT * FROM request";
-$stmt = $conn->prepare($sql);
-$stmt->execute();
 
-$result = $stmt->fetchAll();
 
 function truncate($text,$max = 50){
     return strlen($text) > $max ? substr($text, 0, $max) . "..." : $text;

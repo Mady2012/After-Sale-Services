@@ -1,18 +1,24 @@
 body{
     margin: 0;
     padding: 0;
-    background-color: #FFF9F2;
+    background-color: #E5E7EB;;
     font-family: 'poppins';
 }
 main{
-    border-style: inset;
+  background: #fff;
+  border-radius: 12px;
+  padding: 0px;
+  width: 800px;
+  height: 700px;
+  margin-left: 50px;
+    /* border-style: inset;
     background-color: #fff;
     border-color: transparent;
     width: 40%;
     height: 550px;
     margin: 40px;
     margin-left: 400px;
-    border-radius: 12px;
+    border-radius: 12px; */
     box-shadow: 0px 8px 20px rgba(236, 148, 25, 0.034);
 }
 .head{

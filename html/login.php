@@ -7,7 +7,7 @@ if(isset($_POST['submit'])){
     $password = $_POST['password'];
 
     try{
-    $sql = "SELECT UserID, UserName, Password  FROM user WHERE UserName = ?";
+    $sql = "SELECT UserID, UserName, Password, Role  FROM user WHERE UserName = ?";
     $stmt = $conn->prepare($sql);
     $stmt->execute([$username]);
     $user = $stmt->fetch();
@@ -15,12 +15,16 @@ if(isset($_POST['submit'])){
             if ($user && password_verify($password, $user['Password'])){
                 $_SESSION['user_id'] = $user['UserID'];
                 $_SESSION['username'] = $user['UserName'];
+                $_SESSION['role'] = $user['Role']; 
 
-                header("Location: dash.php");
-                exit();
-            }
+             if ($user['Role'] === 'user') {
+               header("Location: list.php");
+             } else {
+               header("Location: dash.php");
+             }
+              exit();
 
-            else{
+            }else{
                 $_SESSION['error'] = "Incorrect username or password.";
                 header("Location: login.php");
                 exit();
@@ -57,6 +61,7 @@ if(isset($_POST['submit'])){
        <P> <label for="text" class="log">Password</label></P>
         <P><input type="password" name="password" class="int" required></P>
        <P> <input type="submit" name="submit"  class="btn-login" value="LOGIN"></P>
+       <p>Don't have an account? <a href="sign in">SIGN_IN</a></p>
        </div>
         
      </main>

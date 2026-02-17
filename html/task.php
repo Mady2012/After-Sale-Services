@@ -2,6 +2,10 @@
 session_start();
 include 'connection.php';
 
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+}
+
 $projectid = $_GET['projectid'] ?? '';
 
 $sql1 = "SELECT ProjectID FROM project";
@@ -17,18 +21,20 @@ $roles = $stmt3->fetchAll(PDO::FETCH_ASSOC);
 
 if (isset($_POST['submit'])) {
 
-  $projects = $_POST['projectid'];
+  $projectid = $_POST['projectid'];
   $taskname = $_POST['taskname'];
   $userid = $_POST['userid'];
-  $status = $_POST['status'];
+  $description = $_POST['description'];
+  $status = 'Assigned';
 
   try {
 
-    $sql2 = "INSERT INTO task (ProjectID, TaskName, TechnicianID, Status) VALUES (:projectid, :taskname, :technician_id, :status)";
+    $sql2 = "INSERT INTO task (ProjectID, TaskName, TechnicianID, Description, Status) VALUES (:projectid, :taskname, :technician_id, :description, :status)";
     $stmt2 = $conn->prepare($sql2);
     $stmt2->bindParam(':projectid', $projectid);
     $stmt2->bindParam(':taskname', $taskname);
     $stmt2->bindParam(':technician_id', $userid);
+    $stmt2->bindParam(':description', $description);
     $stmt2->bindParam(':status', $status);
 
       $stmt2->execute();
@@ -37,8 +43,8 @@ if (isset($_POST['submit'])) {
       header("Location: project.php");
       exit;
 
-    } catch(PDOException $e){
-      echo "Erreur" .$sql . "<br>" . $e->getMessage();
+       } catch(PDOException $e){
+      echo "Erreur : " . $e->getMessage();
     }
   }
 
@@ -104,8 +110,8 @@ if (isset($_POST['submit'])) {
 
            <P><label for="text" class="log">TaskName</label></P>
            <P><input type="text" name="taskname" class="int" required ></P>
-          <P> <label for="text" class="log">Status</label></P>
-           <P><input type="text" name="status" class="int" required></P>
+          <P> <label for="text" class="log">Description</label></P>
+           <P><input type="text" name="description" class="int" required></P>
           <P> <input type="submit" name="submit"  class="btn-login" value="ADD"></P>
           </div>
            
