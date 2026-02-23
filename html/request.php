@@ -2,6 +2,8 @@
 session_start();
 include 'connection.php';
 
+require '../mail/email.php';
+
 if (!isset($_SESSION['username'])) {
     header("Location: login.php");
 }
@@ -63,6 +65,20 @@ $stmt2->bindParam(":description", $description);
 
 try{
     $stmt2->execute();
+
+    $adminEmail = "n.peguy@inov.cm";
+
+$subject = "New demand created";
+
+$body = "
+    <h3>New demand received</h3>
+    <p><b>User ID :</b> $userid</p>
+    <p><b>Titre :</b> $request_title</p>
+    <p><b>Description :</b> $description</p>
+";
+
+sendMail($adminEmail, $subject, $body);
+
   }
   catch(PDO_Exception $e){
     echo "Erreur" .$sql . "<br>" . $e->getMessage();
