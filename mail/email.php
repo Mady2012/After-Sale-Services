@@ -13,7 +13,7 @@ $mail = new PHPMailer(true);
 
 try {
     
-    $mail->SMTPDebug = 2;                     
+    $mail->SMTPDebug = 0;                     
     $mail->isSMTP();                                          
     $mail->Host       = 'smtp.gmail.com';                  
     $mail->SMTPAuth   = true;                                  
@@ -32,9 +32,9 @@ try {
     // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
     $mail->send();
-    echo 'Message has been sent';
+    echo "<script>alert('Message has been sent');</script>";
 }
  catch (Exception $e) {
-    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    echo "<script>alert('Message could not be sent. Mailer Error: {$mail->ErrorInfo}');<?script>";
   }
 }

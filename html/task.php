@@ -6,6 +6,10 @@ if (!isset($_SESSION['username'])) {
     header("Location: login.php");
 }
 
+if ($_SESSION['role'] === 'technician') {
+    die("Access denied");
+}
+
 $projectid = $_GET['projectid'] ?? '';
 
 $sql1 = "SELECT ProjectID FROM project";
@@ -108,10 +112,12 @@ if (isset($_POST['submit'])) {
         <?php endforeach; ?> 
           </select>
 
-           <P><label for="text" class="log">TaskName</label></P>
-           <P><input type="text" name="taskname" class="int" required ></P>
+          <P><label for="text" class="log">TaskName</label></P>
+          <P><input type="text" name="taskname" class="int" required ></P>
           <P> <label for="text" class="log">Description</label></P>
-           <P><input type="text" name="description" class="int" required></P>
+          <P><input type="text" name="description" class="int" required></P>
+          <P> <label for="text" class="log">Status</label></P>
+          <P><input type="text" name="status" class="int" required></P>
           <P> <input type="submit" name="submit"  class="btn-login" value="ADD"></P>
           </div>
            

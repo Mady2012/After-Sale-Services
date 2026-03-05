@@ -1,3 +1,7 @@
 $(document).ready(function () {
-    $('#tab').DataTable();
+    $('#tab').DataTable({
+        "paging": true,
+        "searching": true,
+        "info": true
+    });
 });

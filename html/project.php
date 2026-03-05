@@ -11,6 +11,23 @@ if ($_SESSION['role'] === 'User') {
     exit;
 }
 
+// $role = $_SESSION['role'];
+// $user_id = $_SESSION['user_id'];
+
+//     $projects = [];
+
+// if ($role === 'technician') {
+
+//     $sqlTask = "SELECT ProjectID FROM task WHERE TechnicianID = :id";
+//     $stmtTask = $conn->prepare($sqlTask);
+//     $stmtTask->execute(['id' => $user_id]);
+
+//     $projectIDs = $stmtTask->fetchAll(PDO::FETCH_COLUMN);
+
+//     if (empty($projectIDs)) {
+//         $projects = [];
+//     } else {
+
 $sql = "SELECT * FROM project";
 $stmt = $conn->query($sql);
 $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -21,7 +38,7 @@ $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <html lang="en">
 <head>
 
-    <link rel="stylesheet" href="../css/project.css">
+    <link rel="stylesheet" href="../css/project1.css">
     <link rel="stylesheet" href="../css/dash.css">
     <link rel="stylesheet" href="../Icon/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -47,8 +64,8 @@ $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <h3 class="i-name">
             Project
         </h3>
-        
-        <section class="values">
+
+        <div class="values">
                 <?php foreach ($projects as $project): ?>
                     <?php
                       $sqltask = "SELECT COUNT(*) AS total_task FROM task WHERE ProjectID = :projectid";
@@ -60,25 +77,24 @@ $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
                       $taskcount = $supportData['total_task'];
 
                     ?>
-                    <div class="card" onclick="window.location.href='task_list.php?projectid=<?php echo $project['ProjectID']; ?>'">
                        <?php if (strtolower($project['Status']) === 'new'): ?>
-                        <h3> 
-                            <div class="val-box">
+                        <div class="val-box" onclick="window.location.href='task_list.php?projectid=<?php echo $project['ProjectID']; ?>'">
                          <i class="fa fa-diagram-project"></i>
-                            <?= ($taskcount) ?> <br>
-                            <?= ($project['ProjectName']) ?> </i><a href="task.php?projectid=<?= $project['ProjectID']; ?>" class="view-btn">Add task</a>
-                        </h3> 
-                        <!-- <?= ($project['RequestID']) ?></p>
-                        <?= ($project['Description']) ?></p>
-                        <?= ($project['Status']) ?></p>  -->
-                     
-                    </div>
+                         <div>
+                            <h3><?= ($taskcount) ?></h3><br>
+                            <span><?= ($project['ProjectName']) ?>
+                              <?php if ($role !== 'technician'): ?>
+                                </i><a href="task.php?projectid=<?= $project['ProjectID']; ?>" class="view-btn">+</a>
+                              <?php endif; ?>
+                            </span>
+                         </div>                        
+                        </div>
+
                      <?php endif; ?>
-                <?php endforeach; ?>
+                      <?php endforeach; ?>
+        </div>              
 
-            </div>
-
-        </section>
+    </section>
 
     <script>
         $('#menu-btn').click(function(){

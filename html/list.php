@@ -9,7 +9,7 @@ if (!isset($_SESSION['username'])) {
   $username = $_SESSION['username'];
   $role = $_SESSION['role'] ?? 'User';
 
-if ($role === 'Admin' || $role === 'Technicien') {
+if ($role === 'admin' || $role === 'technician') {
     $sql = "SELECT * FROM request ORDER BY RequestID DESC";
     $stmt = $conn->prepare($sql);
     $stmt->execute();

@@ -9,6 +9,7 @@
                 </div>
             </div>
             <div class="profile">
+               <a href="disconnect.php"><i class="fa fa-closed-captioning"></i></a>
                 <i class="fa fa-bell"></i>
                 <img src="../avatar.jpeg" alt="">
             </div>

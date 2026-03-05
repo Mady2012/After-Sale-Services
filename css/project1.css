@@ -1,0 +1,17 @@
+/* .view-btn { */
+    /* display: inline-block;
+    margin-top: 10px;
+    padding: 8px 12px; */
+    /* background: orange;
+    color: white; */
+    /* border-radius: 8px; */
+    /* text-decoration: none;
+}
+
+.view-btn:hover {
+    background: darkorange;
+} */
+ .view-btn{
+    text-decoration: none;
+    color: orange;
+ }

@@ -1,4 +1,6 @@
 <?php
+session_start();
+$username = $_SESSION['username'] ?? null;
 
 // if (!isset($_SESSION['username'])) {
 //     header("Location: login.php");
@@ -9,6 +11,8 @@
 <head>
      <link rel="stylesheet" href="../css/style1.css">
    <!-- <link rel="stylesheet" href="../css/dash.css"> -->
+    <link rel="stylesheet" href="../Icon/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,11 +28,25 @@
              <div class="ref">
               <a href="request.php">Support</a>
               <a href="list.php">Consult my Supports</a>
-              <a href="sign in.php">Sign In</a>
-             </div>
-            
 
-             <div class="profile">
+              <!-- <?php if ($username): ?>
+            <span style="font-weight:bold;" class="user-name"> HEY, <?= htmlspecialchars($username) ?></span>
+             <a href="logout.php">Déconnexion</a>
+             <?php else: ?>
+                <a href="login.php">Log In</a>
+             <?php endif; ?> -->
+             
+             </div>
+
+              <?php if ($username): ?>
+            <span style="font-weight:bold;" class="user-name"> HEY, <?= htmlspecialchars($username) ?></span>
+             <!-- <a href="logout.php">Déconnexion</a> -->
+             <?php else: ?>
+                <a href="login.php" style="color:orange; text-decoration:none;">Log In</a>
+             <?php endif; ?>
+
+              <div class="profile">
+               <a href="disconnect.php"><i class="fa fa-closed-captioning"></i></a>
                 <i class="fa fa-bell"></i>
                 <img src="../avatar.jpeg" alt="">
              </div>

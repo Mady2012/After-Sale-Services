@@ -28,10 +28,12 @@ $request = $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
 
+
+
 ?>
 <html lang="en">
 <head>
-  <!-- <link rel="stylesheet" href="../css/dash.css"> -->
+  <link rel="stylesheet" href="../css/dash.css">
   <link rel="stylesheet" href="../Icon/css/all.min.css">
   <meta charset="UTF-8">
   <title>View</title>
@@ -39,17 +41,17 @@ $request = $stmt->fetch(PDO::FETCH_ASSOC);
 <body>
 
   <!-- side-bar -->
-    <!-- <?php
+    <?php
     include '../include/sidebar.php'; 
-    ?>  -->
+    ?> 
 
     <section id="interface">
 
     <!-- navbar -->
 
-    <!-- <?php
+    <?php
      include '../include/nav.php';
-   ?> -->
+   ?>
 
   <form action="list.php" method="post">
 

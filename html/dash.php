@@ -2,6 +2,10 @@
 include 'connection.php';
 session_start();
 
+function truncate($text,$max = 50){
+    return strlen($text) > $max ? substr($text, 0, $max) . "..." : $text;
+}
+
 if (!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit;
@@ -11,6 +15,27 @@ if ($_SESSION['role'] === 'User') {
     header("Location: list.php");
     exit;
 }
+
+$role = $_SESSION['role'];
+$user_id = $_SESSION['user_id'];
+
+
+if ($role === 'technician') {
+    $sqlTask = "SELECT COUNT(*) AS total_task 
+                FROM task 
+                WHERE TechnicianID = :id";
+    $stmtTask = $conn->prepare($sqlTask);
+    $stmtTask->execute(['id' => $user_id]);
+    $taskCount = $stmtTask->fetch()['total_task'];
+
+    $sqlProject = "SELECT COUNT(DISTINCT ProjectID) AS total_project
+                   FROM task
+                   WHERE TechnicianID = :id";
+    $stmtProject = $conn->prepare($sqlProject);
+    $stmtProject->execute(['id' => $user_id]);
+    $projectCount = $stmtProject->fetch()['total_project'];
+
+}else{
 
 $sqlsupport = "SELECT COUNT(*) AS total_support FROM request";
 $stmtsupport = $conn->prepare($sqlsupport);
@@ -26,6 +51,18 @@ $stmtproject->execute();
 $projectData = $stmtproject->fetch();
 $projectcount = $projectData['total_project'];
 
+}
+$result = [];
+
+if ($role === 'technician') {
+
+    $sql = "SELECT * FROM task WHERE TechnicianID = :id";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute(['id' => $user_id]);
+    $result = $stmt->fetchAll();
+
+} else {
+
 $sql = "SELECT * FROM request";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
@@ -38,10 +75,8 @@ $result = $stmt->fetchAll();
 
 // $status = $stmt1->fetch();
 
-function truncate($text,$max = 50){
-    return strlen($text) > $max ? substr($text, 0, $max) . "..." : $text;
-}
 
+}
 ?>
 
 <html lang="en">
@@ -74,6 +109,27 @@ function truncate($text,$max = 50){
         <h3 class="i-name">
             Dashboard
         </h3>
+
+    <?php if ($role === 'technician'): ?>
+        <div class="values">
+<div class="val-box">
+    <i class="fa fa-list-check"></i>
+    <div>
+        <h3><?= $taskCount ?></h3>
+        <span>My Tasks</span>
+    </div>
+</div>
+
+<div class="val-box">
+    <i class="fa fa-diagram-project"></i>
+    <div>
+        <h3><?= $projectCount ?></h3>
+        <span>My Projects</span>
+    </div>
+</div>
+
+<?php else: ?>
+
         <div class="values">
             <div class="val-box">
                 <i class="fa fa-ticket"></i>
@@ -104,18 +160,52 @@ function truncate($text,$max = 50){
                 </div>
             </div>
         </div>
+ <?php endif; ?>
         <div class="board">
             <table id="tab" width="100%">
                 <thead>
                     <tr>
-                      <th>Name</th>
-                      <th>Title</th>
+
+                     <?php if ($role === 'technician'): ?>
+                      <th>Task Name</th>
                       <th>Description</th>
                       <th>Status</th>
                       <th>Actions</th>
+
+                     <?php else: ?>
+
+                      <th>Name</th>
+                      <th>Title</th>
+                      <th>Description</th>
+                      <th>Role</th>
+                      <th>Actions</th>
+
+                     <?php endif; ?>
+
                     </tr>
                 </thead>
                 <tbody>
+
+                <?php if ($role === 'technician'): ?>
+
+                 <?php foreach ($result as $task): ?>
+        <tr>
+            <td><?= $task['TaskName'] ?></td>
+            <td><?= substr($task['Description'],0,40) ?>...</td>
+            <td><?= $task['Status'] ?></td>
+
+                        <td class="edit">
+                            <a href="modify-task.php?action=modify&id=<?php echo $task['TaskID']; ?>"> <i class="fa fa-pencil pencil" ></i></a>
+                            <a href="delete.php?action=delete&id=<?php echo $task['TaskID']; ?>" onclick="return confirm('Do you really want to delete this request ?')"> <i class="fa fa-trash trash"></i></a>
+                            <a href="view-task.php?action=view&id=<?php echo $task['TaskID']; ?>"><i class="fa fa-eye eye"></i></a>
+                        </td>
+
+        </tr>
+    <?php endforeach; ?>
+
+    <?php else: ?>
+
+
                 <?php foreach ($result as $req): ?>
                     <?php
                     $sqlUser = "SELECT UserName, Email FROM user WHERE UserID = :id";
@@ -150,6 +240,9 @@ function truncate($text,$max = 50){
                       </td>
                     </tr>
                 <?php endforeach; ?>
+
+                <?php endif; ?>
+
                 </tbody>
             </table>
         </div>
