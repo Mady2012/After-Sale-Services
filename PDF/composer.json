@@ -1,0 +1,16 @@
+{
+    "name": "user/pdf",
+    "autoload": {
+        "psr-4": {
+            "User\\Pdf\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "codeurVision"
+        }
+    ],
+    "require": {
+        "dompdf/dompdf": "^0.8.3"
+    }
+}

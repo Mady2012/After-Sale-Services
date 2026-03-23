@@ -24,8 +24,9 @@ $role = $_SESSION['role'] ?? 'technician';
             
             <?php if ($role !== 'user'): ?>
                 <li><i class="fa fa-diagram-project"></i><a href="project.php">Project</a></p></li>
-                <li><i class="fa fa-tasks"></i><a href="task_list.php">Task_List</a></p></li>
+                <!-- <li><i class="fa fa-tasks"></i><a href="task_list.php">Task_List</a></p></li> -->
                 <li><i class="fa fa-bars-progress"></i><a href="progress.php">Progress</a></p></li>
+                <li><i class="fa fa-bars-progress"></i><a href="report.php">Report</a></p></li>
             <?php endif; ?>
 
             <!-- <button><a href="disconnect.php"><i class="fa fa-closed-captioning"></i></a></button> -->

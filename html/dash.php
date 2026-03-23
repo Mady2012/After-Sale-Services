@@ -51,6 +51,21 @@ $stmtproject->execute();
 $projectData = $stmtproject->fetch();
 $projectcount = $projectData['total_project'];
 
+
+$sqlprogress = "SELECT COUNT(*) project_progress FROM project";
+$stmtprogress = $conn->prepare($sqlprogress);
+$stmtprogress->execute();
+
+$progressData = $stmtprogress->fetch();
+$progresscount = $progressData['project_progress'];
+
+$sqlDone = "SELECT COUNT(*) project_completed FROM project";
+$stmtDone = $conn->prepare($sqlDone);
+$stmtDone->execute();
+
+$DoneData = $stmtDone->fetch();
+$Donecount = $DoneData['project_completed'];
+
 }
 $result = [];
 
@@ -87,7 +102,20 @@ $result = $stmt->fetchAll();
 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-
+    
+      <style>
+    /* .dataTables_wrapper .dataTables_length {
+        margin-bottom: 10px !important;
+        display: block !important;
+        width: 100% !important;
+    } */
+    /* .dataTables_wrapper .dataTables_filter {
+        display: block !important;
+        width: 100% !important;
+        margin-bottom: 10px !important;
+    } */
+        
+  </style>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -148,20 +176,20 @@ $result = $stmt->fetchAll();
             <div class="val-box">
                 <i class="fa fa-critical-role"></i>
                 <div>
-                    <h3>200</h3>
-                    <span>Projects In review</span>
+                    <h3><?= ($progresscount) ?></h3>
+                    <span>Projects In progress</span>
                 </div>
             </div>
             <div class="val-box">
                 <i class="fa fa-bars-progress"></i>
                 <div>
-                    <h3>200</h3>
-                    <span>Project In Progress</span>
+                    <h3><?= ($Donecount) ?></h3>
+                    <span>Project Completed</span>
                 </div>
             </div>
         </div>
  <?php endif; ?>
-        <div class="board">
+        <div class="board" style="padding: 30px;">
             <table id="tab" width="100%">
                 <thead>
                     <tr>
@@ -234,7 +262,7 @@ $result = $stmt->fetchAll();
                         </td>
 
                        <td class="edit">
-                        <a href="modify.php?action=modify&id=<?php echo $req['RequestID']; ?>"> <i class="fa fa-pencil pencil" ></i></a>
+                        <!-- <a href="modify.php?action=modify&id=<?php echo $req['RequestID']; ?>"> <i class="fa fa-pencil pencil" ></i></a> -->
                         <a href="delete.php?action=delete&id=<?php echo $req['RequestID']; ?>" onclick="return confirm('Do you really want to delete this request ?')"> <i class="fa fa-trash trash"></i></a>
                         <a href="view.php?action=view&id=<?php echo $req['RequestID']; ?>"><i class="fa fa-eye eye"></i></a>
                       </td>

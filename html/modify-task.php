@@ -39,11 +39,14 @@ if (isset($_POST['submit'])) {
 
         $stmt->execute();
 
+
+
+
     } catch(PDOException $e) {
         die("Update failed : " . $e->getMessage());
     }
 
-    header("Location: list_task.php");
+    header("Location: project.php");
     exit;
 }
 ?>
@@ -72,7 +75,7 @@ if (isset($_POST['submit'])) {
 <h3 class="i-name">
 
 </h3>
-<form action="" method="post">
+  <form action="" method="post"  enctype="multipart/form-data"> 
 
 <div class="board">
 <section class="left-side">
@@ -102,7 +105,7 @@ if (isset($_POST['submit'])) {
 </div>
 
 <div>
-<input type="submit" name="submit" class="btn-sub" value="UPDATE">
+<input type="submit" name="submit" class="btn-sub" value="SUBMIT">
 </div>
 
 </div>

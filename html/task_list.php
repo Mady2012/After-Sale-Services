@@ -109,7 +109,7 @@ if ($role === 'technician') {
             </h3>
             
             <!-- <table id="tab" class="display" style="width:100%"> -->
-        <div class="board">
+        <div class="board" style="padding: 30px;">
             <table id="tab" width="100%">
                         <thead>
                             <tr>

@@ -64,7 +64,7 @@ $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <h3 class="i-name">
             Project
         </h3>
-
+<div class="progress-list">
         <div class="values">
                 <?php foreach ($projects as $project): ?>
                     <?php
@@ -93,7 +93,7 @@ $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
                      <?php endif; ?>
                       <?php endforeach; ?>
         </div>              
-
+</div>
     </section>
 
     <script>

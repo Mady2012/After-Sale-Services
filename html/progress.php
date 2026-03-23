@@ -13,9 +13,9 @@ if ($_SESSION['role'] === 'User') {
 }
 
 
-$sql = "SELECT TaskName, Status FROM task";
+$sql = "SELECT * FROM project";
 $stmt = $conn->query($sql);
-$tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
             
@@ -42,7 +42,7 @@ $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
     include '../include/sidebar.php'; 
     ?> 
 
-    <section id="interface">
+ <section id="interface">
 
     <!-- navbar -->
 
@@ -52,45 +52,72 @@ $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <h3 class="i-name">
             PROGRESS
         </h3>
+    <div class="progress-list">
         
-<div class="progress-list">
+     <?php foreach($projects as $project): ?>
 
-<?php foreach($tasks as $task): ?>
+     <?php
 
-    <?php
-    if ($task['Status'] == 'Assigned') {
-      $progress = 0;
-    }elseif  ($task['Status'] == 'In Progress'){
-      $progress = 50;
-    }else{
-      $progress = 100;
+     $projectID = $project['ProjectID'];
+
+    $sqlTasks = "SELECT Status FROM task WHERE ProjectID = ?";
+    $stmt = $conn->prepare($sqlTasks);
+    $stmt->execute([$projectID]);
+    $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $totalTasks = count($tasks);
+    $progressSum = 0;
+
+foreach ($tasks as $task) {
+    if ($task['Status'] == 'Completed') {
+        $progressSum += 100;
+    } elseif ($task['Status'] == 'In Progress') {
+        $progressSum += 50;
+    } else { // Pending
+        $progressSum += 0;
     }
+}
+
+// Calculate average progress
+$progress = $totalTasks > 0 ? round($progressSum / $totalTasks) : 0;
+
+    //  $sqlTotal = " SELECT COUNT(*) FROM  task WHERE ProjectID = ? ";
+    //  $stmtTotal = $conn->prepare($sqlTotal);
+    //  $stmtTotal->execute([$projectID]);
+    //  $totalTasks = $stmtTotal->fetchColumn();
+
+    //  $sqlDone = " SELECT COUNT(*) FROM  task WHERE ProjectID = ? AND Status ='Completed' ";
+    //  $stmtDone = $conn->prepare($sqlDone);
+    //  $stmtDone->execute ([$projectID]);
+    //  $doneTasks = $stmtDone->fetchColumn();
+     
+    //  $progress = ($totalTasks > 0) ? round (($doneTasks / $totalTasks) * 100) : 0;
    
     
-$color = $progress < 40 ? '#e74c3c' :
+     $color = $progress < 40 ? '#e74c3c' :
          ($progress < 80 ? '#f39c12' : '#2ecc71');
 
-    ?>
+      ?>
 
-    <div class="progress-item">
+      <div class="progress-item">
 
         <div class="task-title">
-            <?= htmlspecialchars($task['TaskName']) ?>
+            <?= htmlspecialchars($project['ProjectName']) ?>
         </div>
-
         <div class="progress-bar">
-            <div class="progress-fill"
-                style="width: <?= $progress ?>%; background: <?= $color ?>;">
-            </div>
+        <div class="progress-fill" 
+         data-progress="<?= $progress ?>" 
+         style="width: 0%; background: <?= $color ?>;">
         </div>
+     </div>
 
          <span class="percent"><?= $progress ?>%</span>
 
     </div>
 
-    <?php endforeach; ?>
-</div>
-
+     <?php endforeach; ?>
+    </div>
+ </section>
 </body>
 </html>
 

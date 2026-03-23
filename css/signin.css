@@ -1,6 +1,7 @@
 body{
     margin: 0;
     padding: 0;
+    align-items: center;
     background-color: #E5E7EB;;
     font-family: 'poppins';
 }
@@ -8,40 +9,33 @@ main{
   background: #fff;
   border-radius: 12px;
   padding: 0px;
-  width: 800px;
-  height: 700px;
+  width: 50%;
+  height: 130%;
   margin-left: 50px;
-    /* border-style: inset;
-    background-color: #fff;
-    border-color: transparent;
-    width: 40%;
-    height: 550px;
-    margin: 40px;
-    margin-left: 400px;
-    border-radius: 12px; */
-    box-shadow: 0px 8px 20px rgba(236, 148, 25, 0.034);
+  text-align: center;
+  box-shadow: 0px 8px 20px rgba(236, 148, 25, 0.034);
 }
 .head{
     text-align: center;
     padding-top: 30px;
 }
 .infos{
-    padding-top: 10px;
+    padding-top: 5px;
     /* text-align: center; */
     color: #f28d08;
     font-weight: bold;
 }
 .for{
-    text-align: center;
+    /* text-align: center; */
     font-weight: bolder;
     padding-bottom: 5px;
     color: #f28d08;
 }
 .log{
-    padding-left: 100px;
+    /* padding-left: 100px; */
 }
 .int, textarea {
-    margin-left: 100px;
+    /* margin-left: 100px; */
     width: 300px;
     height: 35px;
     padding: 10px;
@@ -65,7 +59,7 @@ main{
     font-size: 16px;
     font-weight: bold;
     border-radius: 20px;
-    margin-left: 100px;
+    /* margin-left: 100px; */
     margin-top: 40px;
     box-shadow: 0px 5px 10px rgba(255,123,0,0.4);
 }
@@ -77,6 +71,6 @@ main{
 } 
 img.thumb { width: 80px; height: auto; border: 1px solid #ccc; cursor: pointer; }
         textarea {
-        width: 300px; 
-        height: 80px; 
+         width: 300px; 
+         height: 80px; 
         }

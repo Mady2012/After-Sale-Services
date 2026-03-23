@@ -2,6 +2,8 @@
 session_start();
 include 'connection.php';
 
+require '../mail/email.php';
+
 if (!isset($_SESSION['username'])) {
     header("Location: login.php");
 }
@@ -41,15 +43,37 @@ if (isset($_POST['submit'])) {
     $stmt2->bindParam(':description', $description);
     $stmt2->bindParam(':status', $status);
 
-      $stmt2->execute();
+    $stmt2->execute();
         
+$sqlUser = "SELECT UserName, Email FROM user WHERE UserID = ?";
+$stmtUser = $conn->prepare($stmtUser);
+$stmtUser->execute();
+$user = $stmtUser->fetch(PDO::FETCH_ASSOC);
 
-      header("Location: project.php");
+    $technicianEmail = $user['Email'];
+    $technicianName = $user['UserName'];
+
+  $subject = "New task assigned";
+
+$body = "
+    <h3>Hello $technicianName, </h3>
+    <p>You have assigned a new task.</p>
+    <p><b>User ID :</b> $projectid</p>
+    <p><b>Titre :</b> $taskname</p>
+    <p><b>Description :</b> $description</p>
+";
+
+sendMail($technicianEmail, $subject, $body);
+
+  }
+  catch(PDO_Exception $e){
+    echo "Erreur" .$sql . "<br>" . $e->getMessage();
+  }
+
+     header("Location: project.php");
       exit;
 
-       } catch(PDOException $e){
-      echo "Erreur : " . $e->getMessage();
-    }
+  
   }
 
 // if ($status === 'in progress') {
@@ -82,7 +106,7 @@ if (isset($_POST['submit'])) {
 ?>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="../css/task.css">
+    <link rel="stylesheet" href="../css/task1.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -116,8 +140,8 @@ if (isset($_POST['submit'])) {
           <P><input type="text" name="taskname" class="int" required ></P>
           <P> <label for="text" class="log">Description</label></P>
           <P><input type="text" name="description" class="int" required></P>
-          <P> <label for="text" class="log">Status</label></P>
-          <P><input type="text" name="status" class="int" required></P>
+          <!-- <P> <label for="text" class="log">Status</label></P>
+          <P><input type="text" name="status" class="int" required></P> -->
           <P> <input type="submit" name="submit"  class="btn-login" value="ADD"></P>
           </div>
            

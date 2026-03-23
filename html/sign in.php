@@ -45,7 +45,7 @@ catch(PDO_Exception $e){
 
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="../css/sign-in.css">
+    <link rel="stylesheet" href="../css/signin.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -94,7 +94,7 @@ catch(PDO_Exception $e){
          </select>
         </div>
        <p> <input type="submit" name="submit" class="btn-login" value="SIGN IN"></p>
-       <h5>Do you have an account? <a href="login.php">LOGIN</a></h5>
+       <h5><center>Do you have an account? <a href="login.php">Login</a></center></h5>
        </div>
         
      </main>

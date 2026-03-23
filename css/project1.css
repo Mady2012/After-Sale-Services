@@ -11,6 +11,13 @@
 .view-btn:hover {
     background: darkorange;
 } */
+.progress-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px;
+    padding: 30px;
+}
+
  .view-btn{
     text-decoration: none;
     color: orange;

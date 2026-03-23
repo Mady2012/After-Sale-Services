@@ -79,6 +79,7 @@ body{
     padding: 5px;
 } */
 
+
 .trash{
     color: #dc3545;
 }
@@ -94,6 +95,8 @@ body{
     margin: 0 5px;
     font-size: 16px;
 } */
+
+
 #interface{
     width: calc(100% - 300px );
     /* margin-left: 300px; */
