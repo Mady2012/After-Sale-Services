@@ -7,6 +7,8 @@ if (!isset($_SESSION['username'])) {
     header("Location: login.php");
 }
 
+$username = $_SESSION['username'] ?? null;
+
 if ($_SESSION['role'] === 'User') {
     header("Location: list.php");
     exit;
@@ -66,13 +68,16 @@ $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     $totalTasks = count($tasks);
+    $doneTasks = 0;
     $progressSum = 0;
 
 foreach ($tasks as $task) {
     if ($task['Status'] == 'Completed') {
         $progressSum += 100;
+        $doneTasks++;
     } elseif ($task['Status'] == 'In Progress') {
         $progressSum += 50;
+        $doneTasks++;
     } else { // Pending
         $progressSum += 0;
     }
@@ -80,31 +85,19 @@ foreach ($tasks as $task) {
 
 // Calculate average progress
 $progress = $totalTasks > 0 ? round($progressSum / $totalTasks) : 0;
-
-    //  $sqlTotal = " SELECT COUNT(*) FROM  task WHERE ProjectID = ? ";
-    //  $stmtTotal = $conn->prepare($sqlTotal);
-    //  $stmtTotal->execute([$projectID]);
-    //  $totalTasks = $stmtTotal->fetchColumn();
-
-    //  $sqlDone = " SELECT COUNT(*) FROM  task WHERE ProjectID = ? AND Status ='Completed' ";
-    //  $stmtDone = $conn->prepare($sqlDone);
-    //  $stmtDone->execute ([$projectID]);
-    //  $doneTasks = $stmtDone->fetchColumn();
-     
-    //  $progress = ($totalTasks > 0) ? round (($doneTasks / $totalTasks) * 100) : 0;
-   
     
      $color = $progress < 40 ? '#e74c3c' :
          ($progress < 80 ? '#f39c12' : '#2ecc71');
 
       ?>
 
-      <div class="progress-item">
+    <div class="progress-item">
 
         <div class="task-title">
             <?= htmlspecialchars($project['ProjectName']) ?>
         </div>
-        <div class="progress-bar">
+
+    <div class="progress-bar">
         <div class="progress-fill" 
          data-progress="<?= $progress ?>" 
          style="width: 0%; background: <?= $color ?>;">
@@ -113,7 +106,11 @@ $progress = $totalTasks > 0 ? round($progressSum / $totalTasks) : 0;
 
          <span class="percent"><?= $progress ?>%</span>
 
-    </div>
+         <span class="task-ratio">
+           <?= $doneTasks ?>/<?= $totalTasks ?>
+         </span>
+
+     </div>
 
      <?php endforeach; ?>
     </div>

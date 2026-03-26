@@ -1,10 +1,6 @@
 <?php
 session_start();
-$username = $_SESSION['username'] ?? null;
-
-// if (!isset($_SESSION['username'])) {
-//     header("Location: login.php");
-// }
+$username = $_SESSION['username'] ?? null; // null si pas connecté
 ?>
 
 <html lang="en">
@@ -29,26 +25,20 @@ $username = $_SESSION['username'] ?? null;
               <a href="request.php">Support</a>
               <a href="list.php">Consult my Supports</a>
 
-              <!-- <?php if ($username): ?>
-            <span style="font-weight:bold;" class="user-name"> HEY, <?= htmlspecialchars($username) ?></span>
-             <a href="logout.php">Déconnexion</a>
-             <?php else: ?>
-                <a href="login.php">Log In</a>
-             <?php endif; ?> -->
              
              </div>
 
-              <?php if ($username): ?>
-            <span style="font-weight:bold;" class="user-name"> HEY, <?= htmlspecialchars($username) ?></span>
-             <!-- <a href="logout.php">Déconnexion</a> -->
-             <?php else: ?>
-                <a href="login.php" style="color:orange; text-decoration:none;">Log In</a>
-             <?php endif; ?>
-
+             <?php if ($username): ?>
+                <span style="font-weight:bold;" class="user-name">HEY, <?= htmlspecialchars($username) ?></span>
+          <?php else: ?>
+                <span>Welcome, Guest!</span>
+                  <a href="login.php" style="color:orange; text-decoration:none;">Log In</a>
+            <?php endif; ?>
               <div class="profile">
-               <a href="disconnect.php"><i class="fa fa-closed-captioning"></i></a>
                 <i class="fa fa-bell"></i>
-                <img src="../avatar.jpeg" alt="">
+               <i class="fa fa-circle-user"></i>
+               <!-- <a href="disconnect.php"><i class="fa fa-sign-out-alt"></i></a> -->
+
              </div>
 
             </nav>

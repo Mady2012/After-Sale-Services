@@ -1,6 +1,8 @@
 <?php
 include 'connection.php';
 
+require '../mail/email.php';
+
 $id = $_GET['id'] ?? '';
 
 if (!$id) {
@@ -23,32 +25,47 @@ if (isset($_POST['submit'])) {
     $description = $_POST['description'];
     $status = $_POST['status'];
 
-    try {
-        $stmt = $conn->prepare("
-            UPDATE task 
-            SET TaskName = :taskname,
-                Description = :description,
-                Status = :status
-            WHERE TaskID = :id
-        ");
+    $tokenAccepted = bin2hex(random_bytes(32)); 
+    $tokenRejected   = bin2hex(random_bytes(32));
 
-        $stmt->bindParam(":taskname", $taskname);
-        $stmt->bindParam(":description", $description);
-        $stmt->bindParam(":status", $status);
+    try {
+        $stmt = $conn->prepare("INSERT INTO task_val (TaskID, New_status, Token_confirm, Token_reject) VALUES (:id, :status, :tok1, :tok2)");
+
         $stmt->bindParam(":id", $id);
+        $stmt->bindParam(":status", $status);
+        $stmt->bindParam(":tok1", $tokenAccepted);
+        $stmt->bindParam(":tok2", $tokenRejected);
 
         $stmt->execute();
 
+$url = "http://localhost/After-Sales/html/validate.php";
+
+         $linkconfirmed = $url . "?token=" . $tokenAccepted . "&action=confirm";
+         $linkrejected  = $url . "?token=" . $tokenRejected . "&action=reject";
 
 
+         $adminEmail = "wendymadissone@gmail.com";
+         $subject = "Request for Task Approval: " . $taskname;
+        
+        $body = "
+            <h2>Request for status change</h2>
+            <p>The task <b>$taskname</b> request to pass to status <b>$status</b>.</p>
+            <p>Decide by clicking on one of the bottons:</p>
+            <a href='$linkconfirmed' style='display:inline-block; background:green; color:white; padding:10px; text-decoration:none;'>CONFIRM</a>
+            &nbsp;
+            <a href='$linkrejected' style='display:inline-block; background:red; color:white; padding:10px; text-decoration:none;'>REJECT</a>
+        ";
 
-    } catch(PDOException $e) {
-        die("Update failed : " . $e->getMessage());
+        sendMail($adminEmail, $subject, $body);
+
+        echo "<script>window.location='project.php';</script>";
+        exit;
+
+    } catch(Exception $e) {
+        echo "Erreur : " . $e->getMessage();
     }
 
-    header("Location: project.php");
-    exit;
-}
+    } 
 ?>
 <html lang="en">
 <head>

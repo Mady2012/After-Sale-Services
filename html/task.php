@@ -31,7 +31,7 @@ if (isset($_POST['submit'])) {
   $taskname = $_POST['taskname'];
   $userid = $_POST['userid'];
   $description = $_POST['description'];
-  $status = 'Assigned';
+  $status = 'Pending';
 
   try {
 
@@ -45,9 +45,9 @@ if (isset($_POST['submit'])) {
 
     $stmt2->execute();
         
-$sqlUser = "SELECT UserName, Email FROM user WHERE UserID = ?";
-$stmtUser = $conn->prepare($stmtUser);
-$stmtUser->execute();
+
+$stmtUser = $conn->prepare("SELECT UserName, Email FROM user WHERE UserID = ?");
+$stmtUser->execute([$userid]);
 $user = $stmtUser->fetch(PDO::FETCH_ASSOC);
 
     $technicianEmail = $user['Email'];
@@ -57,16 +57,17 @@ $user = $stmtUser->fetch(PDO::FETCH_ASSOC);
 
 $body = "
     <h3>Hello $technicianName, </h3>
-    <p>You have assigned a new task.</p>
+    <p>You have been assigned a new task.</p>
     <p><b>User ID :</b> $projectid</p>
-    <p><b>Titre :</b> $taskname</p>
+    <p><b>Title :</b> $taskname</p>
     <p><b>Description :</b> $description</p>
 ";
-
+if($user){
 sendMail($technicianEmail, $subject, $body);
+}
 
   }
-  catch(PDO_Exception $e){
+  catch(PDOException $e){
     echo "Erreur" .$sql . "<br>" . $e->getMessage();
   }
 
@@ -76,37 +77,11 @@ sendMail($technicianEmail, $subject, $body);
   
   }
 
-// if ($status === 'in progress') {
-//     $sql = "UPDATE project SET Status = 'in progress' WHERE ProjectID = :projectid";
-//     $stmt = $conn->prepare($sql);
-//     $stmt->execute(['projectid' => $project_id]);
-// }
-// if ($status === 'in review') {
-//     $sql = "UPDATE project SET Status = 'in progress' WHERE ProjectID = :projectid";
-//     $stmt = $conn->prepare($sql);
-//     $stmt->execute(['projectid' => $project_Id]);
-// }
-// if ($status === 'done') {
-//     $sql = "UPDATE project SET Status = 'done' WHERE ProjectID = :projectid";
-//     $stmt = $conn->prepare($sql);
-//     $stmt->execute(['projectid' => $project_id]);
-// }
-
-// try{
-//     $stmt->execute();
-//     echo "Status Updated succesffully";
-//     header("Location: project.php");
-//     exit;
-//   }
-//   catch(PDO_Exception $e){
-//     echo "Erreur" .$sql . "<br>" . $e->getMessage();
-//   }
-
-
 ?>
+
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="../css/task1.css">
+    <link rel="stylesheet" href="../css/task.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>

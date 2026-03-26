@@ -31,12 +31,14 @@ body{
     margin-left: 50px;
 }
 
+
+
 #menu .items{
     margin-top: 40px;
 }
 
 
-#menu .items li{
+#menu .items  li{
     list-style: none;
     padding: 15px 0;
     transition: 0.3s ease;
@@ -68,6 +70,14 @@ body{
     color: #000;
     font-weight: 300px;
     transition: 0.3s ease ;
+}
+.user-welcome {
+    font-weight: 600;
+    color: #333;
+    margin-right: 15px;
+}
+nav .user-welcome {
+    float: right;
 }
 /* .logout{
     border-radius: 50%;
@@ -335,3 +345,10 @@ tbody tr td{
         margin: 30px 15px 30px 15px;
     }
 }
+
+/* .item1{
+    text-decoration: none;
+    color: #000;
+    font-weight: 300px;
+    transition: 0.3s ease ;
+} */

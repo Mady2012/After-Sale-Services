@@ -7,6 +7,7 @@ require '../mail/email.php';
 if (!isset($_SESSION['username'])) {
     header("Location: login.php");
 }
+$username = $_SESSION['username'] ?? null;
 
 $action = $_GET['action'] ?? '';
 $id = $_GET['id'] ?? '';

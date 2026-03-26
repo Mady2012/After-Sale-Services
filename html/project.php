@@ -6,6 +6,8 @@ if (!isset($_SESSION['username'])) {
     header("Location: login.php");
 }
 
+$username = $_SESSION['username'] ?? null;
+
 if ($_SESSION['role'] === 'User') {
     header("Location: list.php");
     exit;
@@ -38,7 +40,7 @@ $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <html lang="en">
 <head>
 
-    <link rel="stylesheet" href="../css/project1.css">
+    <link rel="stylesheet" href="../css/project.css">
     <link rel="stylesheet" href="../css/dash.css">
     <link rel="stylesheet" href="../Icon/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -65,7 +67,7 @@ $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
             Project
         </h3>
 <div class="progress-list">
-        <div class="values">
+        <!-- <div class="values"> -->
                 <?php foreach ($projects as $project): ?>
                     <?php
                       $sqltask = "SELECT COUNT(*) AS total_task FROM task WHERE ProjectID = :projectid";
@@ -92,7 +94,7 @@ $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                      <?php endif; ?>
                       <?php endforeach; ?>
-        </div>              
+        <!-- </div>               -->
 </div>
     </section>
 

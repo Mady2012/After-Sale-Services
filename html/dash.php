@@ -7,9 +7,10 @@ function truncate($text,$max = 50){
 }
 
 if (!isset($_SESSION['username'])) {
-    header("Location: login.php");
+    header("Location: index.php");
     exit;
 }
+$username = $_SESSION['username'];
 
 if ($_SESSION['role'] === 'User') {
     header("Location: list.php");
@@ -52,19 +53,20 @@ $projectData = $stmtproject->fetch();
 $projectcount = $projectData['total_project'];
 
 
-$sqlprogress = "SELECT COUNT(*) project_progress FROM project";
+$sqlprogress = "SELECT COUNT(*) total_progress FROM project WHERE (TRIM(Status)) = 'in progress' ";
 $stmtprogress = $conn->prepare($sqlprogress);
 $stmtprogress->execute();
 
-$progressData = $stmtprogress->fetch();
-$progresscount = $progressData['project_progress'];
+$progressData = $stmtprogress->fetch(PDO::FETCH_ASSOC);
+$progresscount = $progressData['total_progress'];
 
-$sqlDone = "SELECT COUNT(*) project_completed FROM project";
-$stmtDone = $conn->prepare($sqlDone);
-$stmtDone->execute();
+$sqldone = "SELECT COUNT(*) total_done FROM project WHERE (TRIM(Status)) = 'completed'";
+$stmtdone = $conn->prepare($sqldone);
+$stmtdone->execute();
 
-$DoneData = $stmtDone->fetch();
-$Donecount = $DoneData['project_completed'];
+$doneData = $stmtdone->fetch(PDO::FETCH_ASSOC);
+$donecount = $doneData['total_done'];
+
 
 }
 $result = [];
@@ -78,11 +80,12 @@ if ($role === 'technician') {
 
 } else {
 
-$sql = "SELECT * FROM request";
-$stmt = $conn->prepare($sql);
-$stmt->execute();
-
-$result = $stmt->fetchAll();
+ $sql = "SELECT *, 
+            (SELECT Status FROM task WHERE RequestID = request.RequestID ORDER BY TaskID DESC LIMIT 1) AS last_status 
+            FROM request ORDER BY RequestID DESC";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
 
 // $sql1 = "SELECT Status FROM project";
 // $stmt1 = $conn->prepare($sql);
@@ -133,6 +136,7 @@ $result = $stmt->fetchAll();
 
     <?php
      include '../include/nav.php';
+     
    ?>
         <h3 class="i-name">
             Dashboard
@@ -183,10 +187,12 @@ $result = $stmt->fetchAll();
             <div class="val-box">
                 <i class="fa fa-bars-progress"></i>
                 <div>
-                    <h3><?= ($Donecount) ?></h3>
+                    <h3><?= ($donecount) ?></h3>
                     <span>Project Completed</span>
                 </div>
             </div>
+
+
         </div>
  <?php endif; ?>
         <div class="board" style="padding: 30px;">
@@ -205,7 +211,7 @@ $result = $stmt->fetchAll();
                       <th>Name</th>
                       <th>Title</th>
                       <th>Description</th>
-                      <th>Role</th>
+                      <th>Status</th>
                       <th>Actions</th>
 
                      <?php endif; ?>
@@ -259,6 +265,29 @@ $result = $stmt->fetchAll();
                         </td>
                         <td><p><?= (truncate($req['Description'], 40)) ?></p></td>
                         <td class="role">
+                            <?php
+                              $status = $req['last_status'] ?? 'New'; 
+
+                             $color = "#3498db"; // Bleu (New)
+                             if ($status == 'Completed')   $color = "#27ae60"; // Vert
+                             if ($status == 'In Progress') $color = "#f39c12"; // Orange
+                             if ($status == 'Pending')     $color = "#e74c3c"; // Rouge
+                          
+
+                             $bgColor = $statusStyles[$status] ?? "#3498db";
+                            ?>
+                            <span style="
+                                display: inline-block;
+                                padding: 4px 12px;
+                                background-color: <?= $bgColor ?>;
+                                color: white;
+                                font-size: 12px;
+                                font-weight: bold;
+                                font-family: sans-serif;
+                                border-radius: 20px;
+                                ">
+                                <?= htmlspecialchars($status) ?>
+                            </span>
                         </td>
 
                        <td class="edit">
@@ -299,6 +328,12 @@ $(document).ready(function () {
             "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/fr-FR.json"
         }
     });
+});
+</script>
+
+<script>
+$(document).ready(function(){
+    $(".user-welcome").hide().fadeIn(1000);
 });
 </script>
 

@@ -1,0 +1,94 @@
+/* .view-btn { */
+    /* display: inline-block;
+    margin-top: 10px;
+    padding: 8px 12px; */
+    /* background: orange;
+    color: white; */
+    /* border-radius: 8px; */
+    /* text-decoration: none;
+}
+
+.view-btn:hover {
+    background: darkorange;
+} */
+.progress-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px; 
+    padding: 30px;
+}
+
+
+.progress-list .val-box {
+    cursor: pointer;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.progress-list .val-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+}
+
+.progress-list .val-box i {
+     font-size: 25px;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 50%;
+    text-align: center;
+    color: #fff;
+    background-color: #f28d08;
+    margin-right: 15px;
+    /* font-size: 35px;
+    color: orange;
+    border-radius: 50%;  */
+}
+
+/* Texte du projet */
+.progress-list .val-box div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.progress-list .val-box div h3 {
+    margin: 0;
+    font-size: 1.4rem; /* nombre de tâches */
+}
+
+.progress-list .val-box div span {
+    margin-top: 5px;
+    font-size: 1rem; /* nom du projet */
+    color: #555;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.progress-list .view-btn {
+    text-decoration: none;
+    color: orange;
+    font-weight: bold;
+    border: 1px solid orange;
+    padding: 3px 7px;
+    border-radius: 5px;
+    transition: all 0.2s ease;
+}
+
+.progress-list .view-btn:hover {
+    background-color: orange;
+    color: #fff;
+}
+
+/* Responsive : 2 colonnes sur tablettes, 1 sur mobile */
+@media (max-width: 1024px) {
+    .progress-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

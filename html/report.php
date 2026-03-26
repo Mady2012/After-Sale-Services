@@ -6,6 +6,8 @@ if (!isset($_SESSION['username'])) {
     header("Location: login.php");
 }
 
+$username = $_SESSION['username'] ?? null;
+
 // $sql = "SELECT * FROM task WHERE ProjectID = ?";
 // $stmt = $conn->prepare($sql);
 // $stmt->execute();

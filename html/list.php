@@ -10,16 +10,22 @@ if (!isset($_SESSION['username'])) {
   $role = $_SESSION['role'] ?? 'User';
 
 if ($role === 'admin' || $role === 'technician') {
-    $sql = "SELECT * FROM request ORDER BY RequestID DESC";
+   if ($role === 'admin' || $role === 'technician') {
+    $sql = "SELECT *, 
+            (SELECT Status FROM task WHERE RequestID = request.RequestID ORDER BY TaskID DESC LIMIT 1) AS last_status 
+            FROM request ORDER BY RequestID DESC";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
 } else {
-    $sql = "SELECT * FROM request WHERE UserID = :userid ORDER BY RequestID DESC";
+    $sql = "SELECT *, 
+            (SELECT Status FROM task WHERE RequestID = request.RequestID ORDER BY TaskID DESC LIMIT 1) AS last_status 
+            FROM request WHERE UserID = :userid ORDER BY RequestID DESC";
     $stmt = $conn->prepare($sql);
     $stmt->execute(['userid' => $user_id]);
 }
 
 $result = $stmt->fetchAll();
+}
 
 $sqlsupport = "SELECT COUNT(*) AS total_support FROM request";
 $stmtsupport = $conn->prepare($sqlsupport);
@@ -111,8 +117,29 @@ function truncate($text,$max = 50){
                             <h5><?= ($req['Request_Title']) ?></h5>
                         </td>
                          <td><p><?= (truncate($req['Description'], 40)) ?></p></td>
-                         <td class="role">
-                             <p></p>
+                        <td class="role">
+                            <?php
+                             $status = $req['last_status'] ?? 'New'; 
+
+                             $color = "#3498db"; // Bleu (New)
+                             if ($status == 'Completed')   $color = "#27ae60"; // Vert
+                             if ($status == 'In Progress') $color = "#f39c12"; // Orange
+                             if ($status == 'Pending')     $color = "#e74c3c"; // Rouge
+
+                            $bgColor = $statusStyles[$status] ?? "#3498db";
+                            ?>
+                            <span style="
+                                display: inline-block;
+                                padding: 4px 12px;
+                                background-color: <?= $bgColor ?>;
+                                color: white;
+                                font-size: 12px;
+                                font-weight: bold;
+                                font-family: sans-serif;
+                                border-radius: 20px;
+                                ">
+                                <?= htmlspecialchars($status) ?>
+                            </span>
                         </td>
 
                         <td class="edit">
