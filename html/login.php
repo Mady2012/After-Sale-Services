@@ -48,7 +48,9 @@ if(isset($_POST['submit'])){
     <title>Document</title>
 </head>
 <body>
-    <form action="#" method="post">
+
+
+    <form action="" method="post">
      <main>
         <header>
             <div class="head">
@@ -61,7 +63,7 @@ if(isset($_POST['submit'])){
        <P> <label for="text" class="log">Password</label></P>
         <P><input type="password" name="password" class="int" required></P>
        <P> <input type="submit" name="submit"  class="btn-login" value="LOGIN"></P>
-       <h5><center>Don't have an account? <a href="sign in">Sign In</a></center></h5>
+       <h5><center>Don't have an account? <a href="sign in" class="sign">Sign In</a></center></h5>
        </div>
         
      </main>

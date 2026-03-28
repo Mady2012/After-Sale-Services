@@ -1,68 +1,68 @@
-.progress-list {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 20px;
-    padding: 30px;
-}
+    .progress-list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); 
+        gap: 20px;
+        padding: 30px;
+    }
 
-.progress-item {
-    background: #fff;
-    padding: 15px;
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-}   
+    .progress-item {
+        background: #fff;
+        padding: 15px;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+    }   
 
-.task-title {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 6px;
-    font-weight: 600;
-}
+    .task-title {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 6px;
+        font-weight: 600;
+    }
 
-.progress-bar {
-    width: 100% !important;
-    height: 12px;
-    background: #e0e0e0;
-    border-radius: 20px;
-    overflow: hidden;
-    margin: 8px 0;
-}
+    .progress-bar {
+        /* width: 100% !important; */
+        height: 12px;
+        background: #e0e0e0;
+        border-radius: 20px;
+        overflow: hidden;
+        margin: 8px 0;
+    }
 
-.progress-fill {
-    height: 100%;
-    width: 0%;
-    transition: width 0.6s ease;
-}
+    .progress-fill {
+        height: 100%;
+        width: 0%;
+        transition: width 0.6s ease;
+    }
 
-.task-inline {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: #fff;
-    padding: 8px 12px;
-    border-radius: 8px;
-}
+    .task-inline {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: #fff;
+        padding: 8px 12px;
+        border-radius: 8px;
+    }
 
-.task-name {
-    font-weight: 600;
-}
+    .task-name {
+        font-weight: 600;
+    }
 
-.progress-bar-inline {
-    width: 150px;
-    height: 10px;
-    background: #e0e0e0;
-    border-radius: 20px;
-    overflow: hidden;
-}
+    .progress-bar-inline {
+        width: 150px;
+        height: 10px;
+        background: #e0e0e0;
+        border-radius: 20px;
+        overflow: hidden;
+    }
 
-.progress-fill-inline {
-    height: 100%;
-    width: 0%;
-    transition: width 1.2s ease-in-out;
-}
+    .progress-fill-inline {
+        height: 100%;
+        width: 0%;
+        transition: width 1.2s ease-in-out;
+    }
 
-.percent {
-    font-weight: 600;
-}
+    .percent {
+        font-weight: 600;
+    }
 

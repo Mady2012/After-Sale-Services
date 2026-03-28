@@ -15,6 +15,15 @@ $stmt = $conn->prepare("SELECT * FROM project WHERE ProjectID = :id");
 $stmt->execute(['id' => $id]);
 $project = $stmt->fetch(PDO::FETCH_ASSOC);
 
+if ($project) {
+    $stmtReq = $conn->prepare("SELECT UserID FROM request WHERE RequestID = ?");
+    $stmtReq->execute([$project['RequestID']]);
+    $requestData = $stmtReq->fetch(PDO::FETCH_ASSOC);
+ if ($requestData) {
+        $stmtUser = $conn->prepare("SELECT UserName, Email FROM user WHERE UserID = ?");
+        $stmtUser->execute([$requestData['UserID']]);
+        $requester = $stmtUser->fetch(PDO::FETCH_ASSOC);
+    }
 
 $sqlTask = "SELECT TaskName, Description, Status  FROM task WHERE ProjectID = ?";
 $stmtTask = $conn->prepare($sqlTask);
@@ -22,7 +31,7 @@ $stmtTask->execute([$project['ProjectID']]);
 
 $tasks = $stmtTask->fetchAll();
 $nb_task = count($tasks);
-
+}
 ?>
 
 <html lang="en">
@@ -36,7 +45,7 @@ $nb_task = count($tasks);
 body { font-family: Arial, sans-serif; }
 h1 { text-align: center; }
 .board { margin: 20px; }
-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+table { width: 70%; border-collapse: collapse; margin-top: 10px; }
 th, td { border: 1px solid #000; padding: 5px; text-align: left; }
 th { background-color: #f2f2f2; }
 </style>
@@ -44,16 +53,24 @@ th { background-color: #f2f2f2; }
 </head>
 <body>
 
-        <div class="logo">
-            <img src="../logo_inov.png" alt="">
-        </div>
-
+    <div class="logo">
+        <img src="../logo_inov.png" alt="Logo">
+    </div>
+    
     <h1>REPORT</h1>
+     
 
-    <div class="board">
-       <?php if ($project): ?>
-    <p><strong>Project Name:</strong> <?= $project['ProjectName'] ?></p>
-    <p><strong>Description:</strong> <?= $project['Description'] ?></p>
+     <?php if ($project): ?>
+        <div class="header-container">
+           <div class="client-side">
+               <p><strong>Client Name:</strong> <?= htmlspecialchars($requester['UserName'] ) ?></p>
+               <p><strong>Email:</strong> <?= htmlspecialchars($requester['Email']) ?></p>
+           </div>
+        </div>     
+        <div class="project-side">
+            <p><strong>Project Name:</strong> <?= $project['ProjectName'] ?></p>
+            <p><strong>Description:</strong> <?= $project['Description'] ?></p>
+        </div>
 
     <div class="board">
         <table id="tab" width="100%">
@@ -78,20 +95,17 @@ th { background-color: #f2f2f2; }
    <?php else: ?>
     <p>Project not found.</p>
    <?php endif; ?>
-        <script>
-        $('#menu-btn').click(function(){
-            $('#menu').toggleClass("active");
-        })
-    </script>
 
-       <script>
-$(document).ready(function () {
-    $('#tab').DataTable({
-        "language": {
-            "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/fr-FR.json"
-        }
-    });
-});
-</script>
+ <script src="https://code.jquery.com"></script>
+    <script src="https://cdn.datatables.net"></script>
+    <script>
+        $(document).ready(function () {
+            $('#tab').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/fr-FR.json"
+                }
+            });
+        });
+    </script>
 </body>
 </html>

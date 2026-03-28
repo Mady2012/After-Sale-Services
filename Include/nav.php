@@ -9,8 +9,7 @@
                 
             </div>
             <div class="profile">
-               
                <i class="fa fa-circle-user"></i>
-               <a href="disconnect.php"><i class="fa fa-sign-out-alt"></i></a>
+                <!-- <i class="fa fa-sign-out-alt" style="color: orange; font-size: 20px;"></i> -->
             </div>
-        </div>
+</div>

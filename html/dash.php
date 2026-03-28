@@ -269,12 +269,12 @@ if ($role === 'technician') {
                               $status = $req['last_status'] ?? 'New'; 
 
                              $color = "#3498db"; // Bleu (New)
-                             if ($status == 'Completed')   $color = "#27ae60"; // Vert
-                             if ($status == 'In Progress') $color = "#f39c12"; // Orange
-                             if ($status == 'Pending')     $color = "#e74c3c"; // Rouge
+                             if ($status == 'Completed')   $color = "#84d4a6"; // Vert
+                             if ($status == 'In Progress') $color = "#dfb470"; // Orange
+                             if ($status == 'Pending')     $color = "#dd887f"; // Rouge
                           
 
-                             $bgColor = $statusStyles[$status] ?? "#3498db";
+                             $bgColor = $statusStyles[$status] ?? "#589fcf";
                             ?>
                             <span style="
                                 display: inline-block;
