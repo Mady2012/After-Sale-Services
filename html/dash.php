@@ -81,7 +81,7 @@ if ($role === 'technician') {
 } else {
 
  $sql = "SELECT *, 
-            (SELECT Status FROM task WHERE RequestID = request.RequestID ORDER BY TaskID DESC LIMIT 1) AS last_status 
+            (SELECT Status FROM project WHERE ProjectID = request.RequestID ORDER BY ProjectID DESC LIMIT 1)
             FROM request ORDER BY RequestID DESC";
     $stmt = $conn->prepare($sql);
     $stmt->execute();

@@ -104,11 +104,12 @@ $progress = $totalTasks > 0 ? round($progressSum / $totalTasks) : 0;
         </div>
      </div>
 
-         <span class="percent"><?= $progress ?>%</span>
-
-         <span class="task-ratio">
-           <?= $doneTasks ?>/<?= $totalTasks ?>
-         </span>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 5px;">
+        <span class="percent" style="font-weight: 700;"><?= $progress ?>%</span>
+        <span class="task-ratio" style="color: #888; font-size: 0.9em;">
+           <?= $doneTasks ?> / <?= $totalTasks ?> 
+        </span>
+    </div>
 
      </div>
 

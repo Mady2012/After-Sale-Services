@@ -25,10 +25,24 @@ if (isset($_POST['submit'])) {
     $description = $_POST['description'];
     $status = $_POST['status'];
 
+    try {
+        
+     if ($status !== 'Completed') {
+        $update = $conn->prepare("UPDATE task SET TaskName = :name,Description = :description,Status = :status WHERE TaskID = :id");
+       
+        $update->bindParam(":name", $taskname);
+        $update->bindParam(":description", $description);
+        $update->bindParam(":status", $status);
+        $update->bindParam(":id", $id);
+
+        $update->execute();
+
+ }
+    else {
+
     $tokenAccepted = bin2hex(random_bytes(32)); 
     $tokenRejected   = bin2hex(random_bytes(32));
 
-    try {
         $stmt = $conn->prepare("INSERT INTO task_val (TaskID, New_status, Token_confirm, Token_reject) VALUES (:id, :status, :tok1, :tok2)");
 
         $stmt->bindParam(":id", $id);
@@ -57,7 +71,7 @@ $url = "http://localhost/After-Sales/html/validate.php";
         ";
 
         sendMail($adminEmail, $subject, $body);
-
+    }
         echo "<script>window.location='project.php';</script>";
         exit;
 
@@ -66,6 +80,7 @@ $url = "http://localhost/After-Sales/html/validate.php";
     }
 
     } 
+
 ?>
 <html lang="en">
 <head>

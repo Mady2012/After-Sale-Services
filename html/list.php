@@ -10,9 +10,9 @@ if (!isset($_SESSION['username'])) {
   $role = $_SESSION['role'] ?? 'User';
 
 if ($role === 'admin' || $role === 'technician') {
-   if ($role === 'admin' || $role === 'technician') {
+//    if ($role === 'admin' || $role === 'technician') {
     $sql = "SELECT *, 
-            (SELECT Status FROM task WHERE RequestID = request.RequestID ORDER BY TaskID DESC LIMIT 1) AS last_status 
+            (SELECT Status FROM project WHERE ProjectID = request.RequestID ORDER BY ProjectID DESC LIMIT 1)
             FROM request ORDER BY RequestID DESC";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
@@ -23,9 +23,9 @@ if ($role === 'admin' || $role === 'technician') {
     $stmt = $conn->prepare($sql);
     $stmt->execute(['userid' => $user_id]);
 }
+    $result = $stmt->fetchAll();
 
-$result = $stmt->fetchAll();
-}
+
 
 $sqlsupport = "SELECT COUNT(*) AS total_support FROM request";
 $stmtsupport = $conn->prepare($sqlsupport);

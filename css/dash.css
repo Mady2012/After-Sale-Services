@@ -38,7 +38,7 @@ body{
 
 #menu .logo img{
     width: 40px;
-    margin-left: 50px;
+    margin-left: 90px;
 }
 
 #menu .items {
@@ -122,6 +122,9 @@ nav .user-welcome {
 
 #interface{
     margin-left: 300px;
+    width: calc(100% - 300px); /* Prend TOUT le reste de l'écran */
+    min-height: 100vh;
+    display: block;
 }
 #interface .navigation{
     display: flex;

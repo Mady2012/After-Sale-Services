@@ -1,17 +1,43 @@
-    .progress-list {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr); 
-        gap: 20px;
-        padding: 30px;
-    }
+  #interface {
+    margin-left: 300px; /* Largeur du sidebar */
+    width: calc(100% - 300px); /* Occupe tout le reste */
+    display: block;
+    min-height: 100vh;
+}
 
-    .progress-item {
-        background: #fff;
-        padding: 15px;
-        border-radius: 8px;
-        display: flex;
-        flex-direction: column;
-    }   
+.progress-list {
+    display: grid;
+    /* repeat(3, 1fr) force 3 colonnes égales sur 100% de la largeur */
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 25px;
+    padding: 30px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.progress-item {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    width: 100%; 
+    box-sizing: border-box;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 12px;
+    background: #e0e0e0;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 12px 0;
+}
+
+/* Ensure the fill is visible even at low percentages */
+.progress-fill {
+    height: 100%;
+    transition: width 0.6s ease;
+} 
 
     .task-title {
         display: flex;
@@ -19,9 +45,9 @@
         margin-bottom: 6px;
         font-weight: 600;
     }
-
+/* 
     .progress-bar {
-        /* width: 100% !important; */
+        width: 100% !important;
         height: 12px;
         background: #e0e0e0;
         border-radius: 20px;
@@ -33,7 +59,7 @@
         height: 100%;
         width: 0%;
         transition: width 0.6s ease;
-    }
+    } */
 
     .task-inline {
         display: flex;
