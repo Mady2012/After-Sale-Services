@@ -131,7 +131,40 @@ if ($role === 'technician') {
                         <td><?= (($task['TaskName'])) ?></td>
                         <td><?= ($task['TechnicianID']) ?></td>
                         <td><?= ($task['Description']) ?></td>
-                        <td><?= ($task['Status']) ?></td>
+                        <td>
+                            <?php
+                             $taskStatus = trim($task['Status'] ?? 'Pending');
+
+    //  $taskColor = "#3498db"; 
+    // Convert to lowercase to ensure it matches regardless of DB formatting
+    switch (strtolower(trim($taskStatus))) {
+        case 'completed':
+            $taskColor = "#5ee398"; // Green
+            break;
+        case 'in progress':
+            $taskColor = "#e7a336"; // Orange
+            break;
+        case 'pending':
+            $taskColor = "#dd887f"; // Red
+            break;
+        default:
+            $taskColor = "#3498db"; // Blue (for 'New' or others)
+            break;
+    }
+?>
+                            <span style="
+                                display: inline-block;
+                                padding: 4px 12px;
+                                background-color: <?= $taskColor ?>;
+                                color: white;
+                                font-size: 12px;
+                                font-weight: bold;
+                                font-family: sans-serif;
+                                border-radius: 20px;
+                                ">
+                                <?= htmlspecialchars($taskStatus) ?>
+                            </span>
+            </td>
                         
                         <td class="edit">
                             <a href="modify-task.php?action=modify&id=<?php echo $task['TaskID']; ?>"> <i class="fa fa-pencil pencil" ></i></a>

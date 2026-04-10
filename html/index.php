@@ -36,7 +36,7 @@ $username = $_SESSION['username'] ?? null; // null si pas connecté
                   <a href="login.php" style="color:orange; text-decoration:none;">Log In</a>
             <?php endif; ?>
               <div class="profile">
-                <i class="fa fa-bell"></i>
+                <!-- <i class="fa fa-bell"></i> -->
                <i class="fa fa-circle-user"></i>
                <!-- <a href="disconnect.php"><i class="fa fa-sign-out-alt"></i></a> -->
 

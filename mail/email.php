@@ -7,7 +7,7 @@ require 'PHPMailer-master/src/PHPMailer.php';
 require 'PHPMailer-master/src/SMTP.php';
 
 
-function sendMail($to, $subject, $body){
+function sendMail($to, $subject, $body, $attachment = null){
 
 $mail = new PHPMailer(true);
 
@@ -25,6 +25,9 @@ try {
     $mail->setFrom('wendymadissone@gmail.com', 'Wendy');
     $mail->addAddress($to);     
      
+      if ($attachment && file_exists($attachment)) {
+            $mail->addAttachment($attachment);
+      }
 
     $mail->isHTML(true);                                 
     $mail->Subject = $subject;

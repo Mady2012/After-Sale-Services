@@ -24,18 +24,18 @@ if(isset($_POST['submit'])){
              }
               exit();
 
-            }else{
-                $_SESSION['error'] = "Incorrect username or password.";
-                header("Location: login.php");
-                exit();
-            }
+            } else {
+    // Store message in session instead of echoing
+    $_SESSION['error'] = "Incorrect username or password.";
+    header("Location: login.php");
+    exit();
+}
             
-    }catch(PDOException $e){
-        $_SESSION['error'] = "Error : " . $e->getMessage();
-        header("Location: login.php");
-        exit();
-     
-    }
+    } catch(PDOException $e) {
+    $_SESSION['error'] = "Database Error: " . $e->getMessage();
+    header("Location: login.php");
+    exit();
+}
 }
 ?>
 

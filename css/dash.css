@@ -189,7 +189,16 @@ nav .user-welcome {
     font-weight: 700;
     margin-top: 70px;
 }
-.values{
+.values {
+    padding: 30px 30px 0 30px;
+    display: flex;
+    justify-content: flex-start; /* Changed from space-between */
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    gap: 20px;                   /* Increased gap for better spacing */
+}
+/* .values{
     padding: 30px 30px 0 30px;
     display: flex;
     justify-content: space-between;
@@ -198,7 +207,7 @@ nav .user-welcome {
     margin-bottom: 20px;
     gap: 5px;
 
-}
+} */
 .values .val-box{
     background: #fff;
     width: 220px;

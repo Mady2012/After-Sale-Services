@@ -8,9 +8,10 @@ if (!isset($_SESSION['username'])) {
     header("Location: login.php");
 }
 $username = $_SESSION['username'] ?? null;
+$userid = $_SESSION['user_id'] ?? null;
 
-$action = $_GET['action'] ?? '';
-$id = $_GET['id'] ?? '';
+// $action = $_GET['action'] ?? '';
+// $id = $_GET['id'] ?? '';
 
 if (isset($_POST['submit'])){
 $request_title = $_POST['request_title'];
@@ -18,22 +19,19 @@ $description = $_POST['description'];
 $imagename = $_FILES['image']['name'];
 
 
-if (!isset($_SESSION['user_id'])) {
+if (!$userid) {
   die("Error : No user connected.");
 }
-$userid = $_SESSION['user_id'];
 
-
-$uploadDir = "../image/";
+  $uploadDir = "../image/";
   $fileName = time() . "_" . basename($imagename);
   $targetFile = $uploadDir . $fileName;
-
   
   move_uploaded_file($_FILES['image']['tmp_name'], $targetFile);
-  $image = $uploadDir . $fileName;
+  $image = $targetFile;
 
 
-
+try{
 $sql1 = "INSERT INTO request (UserID, Request_Title, Description, Image) VALUES (:user_id, :request_title, :description, :image)";
 $stmt1 = $conn->prepare($sql1);
 $stmt1->bindParam(":user_id", $userid);
@@ -41,21 +39,13 @@ $stmt1->bindParam(':request_title', $request_title);
 $stmt1->bindParam(':description', $description);
 $stmt1->bindParam(':image', $image);
 
+$stmt1->execute();
 
-try{
-  $stmt1->execute();
-}
-catch(PDO_Exception $e){
-  echo "Erreur" .$sql . "<br>" . $e->getMessage();
-}
- 
 
 $requestid = $conn->LastInsertId();
 
-$projectname = $request_title;
-$description = $description;
-
-
+$projectname = $request_title; 
+$description = $_POST['description']; 
 
 $sql2 = "INSERT INTO project(RequestID, ProjectName, Description) VALUES(:requestid, :request_title, :description)";
 $stmt2 = $conn->prepare($sql2);
@@ -63,29 +53,66 @@ $stmt2->bindParam(":requestid", $requestid);
 $stmt2->bindParam(":request_title", $projectname);
 $stmt2->bindParam(":description", $description);
 
+$stmt2->execute();
 
-try{
-    $stmt2->execute();
+    $stmtUser = $conn->prepare("SELECT UserName, Email FROM user WHERE UserID = :id");
+    $stmtUser->execute(['id' => $userid]);
+    $user = $stmtUser->fetch(PDO::FETCH_ASSOC);
+    
+    $senderName  = $user['UserName'] ?? "User";
+    $senderEmail = $user['Email'] ?? null;
 
-    $adminEmail = "n.peguy@inov.cm";
+    $stmtAdmin = $conn->prepare("SELECT Email FROM user WHERE role = 'Admin' LIMIT 1");
+    $stmtAdmin->execute();
+    $admin = $stmtAdmin->fetch(PDO::FETCH_ASSOC);
 
-$subject = "New demand created";
+    if ($admin) {
+      $adminEmail = $admin['Email'];
 
-$body = "
-    <h3>New demand received</h3>
-    <p><b>User ID :</b> $userid</p>
+      $subject = "New Demand from: " . $senderName;
+
+  $body = "
+    <h3>New Request received</h3>
+    <p><b>User ID :</b>  $senderName(ID: $userid)</p>
     <p><b>Titre :</b> $request_title</p>
     <p><b>Description :</b> $description</p>
-";
+    <p><i>The submitted image is attached to this email.</i></p>
+  ";
 
-sendMail($adminEmail, $subject, $body);
+ sendMail($adminEmail, $subject, $body, $image);
 
   }
-  catch(PDO_Exception $e){
+
+  if ($senderEmail) {
+        $userSubject = "We received your request: " . $request_title;
+        $userBody = "
+            <h3>Hello $senderName,</h3>
+            <p>Your request has been successfully submitted. Our team will contact you at <b>$senderEmail</b> shortly.</p>
+            <br>
+            <p>Ticket Title: $request_title</p>
+        ";
+      sendMail($senderEmail, $userSubject, $userBody);
+  }
+    
+
+$getAdmin = $conn->prepare("SELECT UserID FROM user WHERE role = 'Admin' LIMIT 1");
+$getAdmin->execute();
+$admin_id = $getAdmin->fetchColumn();
+
+if ($admin_id) {
+    $notif_sql = "INSERT INTO notification (UserID, Message) VALUES (:uid, :msg)";
+    $notif_stmt = $conn->prepare($notif_sql);
+    $notif_stmt->execute([
+        'uid' => $admin_id,
+        'msg' => "New request from $senderName: $request_title"
+    ]);
+}
+
+}catch(PDO_Exception $e){
     echo "Erreur" .$sql . "<br>" . $e->getMessage();
   }
-  
- }
+}
+
  ?>
 
 <html lang="en">

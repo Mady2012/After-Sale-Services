@@ -38,3 +38,14 @@ $role = $_SESSION['role'] ?? 'technician';
               <a href="disconnect.php"><i class="fa fa-sign-out-alt" style="color: orange; font-size: 30px; padding: 50px;"></i></a>
 
     </section>
+
+<script>  
+    $(document).ready(function() {
+    var currentUrl = window.location.href;
+    $('#menu .items li a').each(function() {
+        if (this.href === currentUrl) {
+            $(this).addClass('active-link');
+        }
+    });
+});
+</script>

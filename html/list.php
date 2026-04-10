@@ -11,14 +11,14 @@ if (!isset($_SESSION['username'])) {
 
 if ($role === 'admin' || $role === 'technician') {
 //    if ($role === 'admin' || $role === 'technician') {
-    $sql = "SELECT *, 
-            (SELECT Status FROM project WHERE ProjectID = request.RequestID ORDER BY ProjectID DESC LIMIT 1)
+   $sql = "SELECT *, 
+            (SELECT Status FROM project WHERE RequestID = request.RequestID ORDER BY ProjectID DESC LIMIT 1) AS last_status
             FROM request ORDER BY RequestID DESC";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
 } else {
-    $sql = "SELECT *, 
-            (SELECT Status FROM task WHERE RequestID = request.RequestID ORDER BY TaskID DESC LIMIT 1) AS last_status 
+ $sql = "SELECT *, 
+            (SELECT Status FROM project WHERE RequestID = request.RequestID ORDER BY ProjectID DESC LIMIT 1) AS last_status 
             FROM request WHERE UserID = :userid ORDER BY RequestID DESC";
     $stmt = $conn->prepare($sql);
     $stmt->execute(['userid' => $user_id]);
@@ -107,7 +107,7 @@ function truncate($text,$max = 50){
                     ?>
                     <tr>
                         <td class="people">
-                            <img src="../avatar.jpeg" alt="">
+                            <!-- <img src="../avatar.jpeg" alt=""> -->
                             <div class="people-de">
                                 <h5><?= (($user['UserName'])) ?></h5>
                                 <p><?= (($user['Email'])) ?></p>
@@ -118,20 +118,30 @@ function truncate($text,$max = 50){
                         </td>
                          <td><p><?= (truncate($req['Description'], 40)) ?></p></td>
                         <td class="role">
-                            <?php
-                             $status = $req['last_status'] ?? 'New'; 
+                               <?php
+    // Get the status from the alias we added in SQL
+    $status = $req['last_status'] ?? 'New'; 
 
-                             $color = "#3498db"; // Bleu (New)
-                             if ($status == 'Completed')   $color = "#27ae60"; // Vert
-                             if ($status == 'In Progress') $color = "#f39c12"; // Orange
-                             if ($status == 'Pending')     $color = "#e74c3c"; // Rouge
-
-                            $bgColor = $statusStyles[$status] ?? "#3498db";
-                            ?>
+    // Convert to lowercase to ensure it matches regardless of DB formatting
+    switch (strtolower(trim($status))) {
+        case 'completed':
+            $color = "#5ee398"; // Green
+            break;
+        case 'in progress':
+            $color = "#e7a336"; // Orange
+            break;
+        case 'pending':
+            $color = "#dd887f"; // Red
+            break;
+        default:
+            $color = "#3498db"; // Blue (for 'New' or others)
+            break;
+    }
+?>
                             <span style="
                                 display: inline-block;
                                 padding: 4px 12px;
-                                background-color: <?= $bgColor ?>;
+                                background-color: <?= $color ?>;
                                 color: white;
                                 font-size: 12px;
                                 font-weight: bold;

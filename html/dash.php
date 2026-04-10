@@ -81,7 +81,7 @@ if ($role === 'technician') {
 } else {
 
  $sql = "SELECT *, 
-            (SELECT Status FROM project WHERE ProjectID = request.RequestID ORDER BY ProjectID DESC LIMIT 1)
+            (SELECT Status FROM project WHERE RequestID = request.RequestID ORDER BY ProjectID DESC LIMIT 1) AS last_status
             FROM request ORDER BY RequestID DESC";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
@@ -226,7 +226,41 @@ if ($role === 'technician') {
         <tr>
             <td><?= $task['TaskName'] ?></td>
             <td><?= substr($task['Description'],0,40) ?>...</td>
-            <td><?= $task['Status'] ?></td>
+            <td>
+            <?php
+    // Get the status from the alias we added in SQL
+    $taskStatus = trim($task['Status'] ?? 'Pending');
+
+    //  $taskColor = "#3498db"; 
+    // Convert to lowercase to ensure it matches regardless of DB formatting
+    switch (strtolower(trim($taskStatus))) {
+        case 'completed':
+            $taskColor = "#5ee398"; // Green
+            break;
+        case 'in progress':
+            $taskColor = "#e7a336"; // Orange
+            break;
+        case 'pending':
+            $taskColor = "#dd887f"; // Red
+            break;
+        default:
+            $taskColor = "#3498db"; // Blue (for 'New' or others)
+            break;
+    }
+?>
+                            <span style="
+                                display: inline-block;
+                                padding: 4px 12px;
+                                background-color: <?= $taskColor ?>;
+                                color: white;
+                                font-size: 12px;
+                                font-weight: bold;
+                                font-family: sans-serif;
+                                border-radius: 20px;
+                                ">
+                                <?= htmlspecialchars($taskStatus) ?>
+                            </span>
+            </td>
 
                         <td class="edit">
                             <a href="modify-task.php?action=modify&id=<?php echo $task['TaskID']; ?>"> <i class="fa fa-pencil pencil" ></i></a>
@@ -254,7 +288,7 @@ if ($role === 'technician') {
                     ?>
                     <tr>
                         <td class="people">
-                            <img src="../avatar.jpeg" alt="">
+                            <!-- <img src="../avatar.jpeg" alt=""> -->
                             <div class="people-de">
                                 <h5><?= (($user['UserName'])) ?></h5>
                                 <p><?= (($user['Email'])) ?></p>
@@ -266,20 +300,29 @@ if ($role === 'technician') {
                         <td><p><?= (truncate($req['Description'], 40)) ?></p></td>
                         <td class="role">
                             <?php
-                              $status = $req['last_status'] ?? 'New'; 
+    // Get the status from the alias we added in SQL
+    $status = $req['last_status'] ?? 'New'; 
 
-                             $color = "#3498db"; // Bleu (New)
-                             if ($status == 'Completed')   $color = "#84d4a6"; // Vert
-                             if ($status == 'In Progress') $color = "#dfb470"; // Orange
-                             if ($status == 'Pending')     $color = "#dd887f"; // Rouge
-                          
-
-                             $bgColor = $statusStyles[$status] ?? "#589fcf";
-                            ?>
+    // Convert to lowercase to ensure it matches regardless of DB formatting
+    switch (strtolower(trim($status))) {
+        case 'completed':
+            $color = "#5ee398"; // Green
+            break;
+        case 'in progress':
+            $color = "#e7a336"; // Orange
+            break;
+        case 'pending':
+            $color = "#dd887f"; // Red
+            break;
+        default:
+            $color = "#3498db"; // Blue (for 'New' or others)
+            break;
+    }
+?>
                             <span style="
                                 display: inline-block;
                                 padding: 4px 12px;
-                                background-color: <?= $bgColor ?>;
+                                background-color: <?= $color ?>;
                                 color: white;
                                 font-size: 12px;
                                 font-weight: bold;
